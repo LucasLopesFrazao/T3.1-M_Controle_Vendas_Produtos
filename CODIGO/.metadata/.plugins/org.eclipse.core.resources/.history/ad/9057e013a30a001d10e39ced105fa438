@@ -73,24 +73,15 @@ public class BancoDados {
 	}
 	
 	public void excluirVendedor(Vendedor vendedor) {
-		vendedores.remove(vendedor.getId());
+		clientes.remove(vendedor.getId());
 	}
 	
 	public void excluirProduto(Produto produto) {
-		produtos.remove(produto.getId());
+		clientes.remove(produto.getId());
 	}
 	
 	// EDITAR NO BANCO DE DADOS
-	public void editarCliente(Cliente cliente) {
-		// TODO 
-		clientes.add(cliente);
-	}
-	public void editarVendedor(Vendedor vendedor) {
-		// TODO 
-		vendedores.add(vendedor);
-	}
-	public void editarProduto(Produto produto) {
-		// TODO 
-		produtos.add(produto);
+	public void editarCliente(Integer id) {
+		
 	}
 }
