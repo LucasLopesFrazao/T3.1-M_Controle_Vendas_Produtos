@@ -19,6 +19,7 @@ public class BancoDadosCliente {
 		for(Cliente c: clientes) {
 			if(c.getCpf().equals(cpf)) {
 				cliente = c;
+				System.out.println(c);
 			}
 		}
 		return cliente;

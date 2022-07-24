@@ -14,14 +14,13 @@ public class BancoDadosCliente {
 				"Planaltina Goiás", "Quadra 17", "2", "Setor Norte", "GO"));
 	}
 	
-	public Cliente pesquisarCliente(String cpf) {
-		Cliente cliente = new Cliente();
+	public Cliente pesquisarCliente(String nome) {
+		Cliente cliente;
 		for(Cliente c: clientes) {
-			if(c.getCpf().equals(cpf)) {
+			if(c.getNome().equals(nome)) {
 				cliente = c;
 			}
 		}
-		return cliente;
 	}
 	
 	public Integer ultimoCodigoCadastrado() {		

@@ -14,11 +14,13 @@ public class BancoDadosCliente {
 				"Planaltina Goiás", "Quadra 17", "2", "Setor Norte", "GO"));
 	}
 	
-	public Cliente pesquisarCliente(String cpf) {
+	public Cliente pesquisarCliente(String nome) {
+		System.out.println(nome);
 		Cliente cliente = new Cliente();
 		for(Cliente c: clientes) {
-			if(c.getCpf().equals(cpf)) {
+			if(c.getNome().toUpperCase().equals(nome.toUpperCase())) {
 				cliente = c;
+				System.out.println(c);
 			}
 		}
 		return cliente;

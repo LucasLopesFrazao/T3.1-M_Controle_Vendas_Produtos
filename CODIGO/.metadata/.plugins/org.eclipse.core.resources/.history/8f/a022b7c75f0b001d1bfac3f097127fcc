@@ -485,6 +485,7 @@ public class ControleCliente extends javax.swing.JDialog {
         
         DefaultTableModel tabelaClientes = (DefaultTableModel) controleClienteTblClientes.getModel();
         Cliente c = bancoDadosCliente.pesquisarCliente(controleClienteInputPesquisarCPF.getText());
+        System.out.println(controleClienteInputPesquisarCPF.getText());
         
         Integer codigo = c.getId(); 
 		String nome = c.getNome();

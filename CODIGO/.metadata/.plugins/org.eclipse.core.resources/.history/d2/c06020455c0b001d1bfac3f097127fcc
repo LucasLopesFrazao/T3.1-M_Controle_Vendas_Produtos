@@ -14,14 +14,9 @@ public class BancoDadosCliente {
 				"Planaltina Goiás", "Quadra 17", "2", "Setor Norte", "GO"));
 	}
 	
-	public Cliente pesquisarCliente(String cpf) {
-		Cliente cliente = new Cliente();
-		for(Cliente c: clientes) {
-			if(c.getCpf().equals(cpf)) {
-				cliente = c;
-			}
-		}
-		return cliente;
+	// PESQUISAR SOMENTE 1 ITEM	
+	public Cliente pesquisarCliente(Integer id) {
+		return clientes.get(id - 1);
 	}
 	
 	public Integer ultimoCodigoCadastrado() {		

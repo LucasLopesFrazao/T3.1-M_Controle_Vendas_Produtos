@@ -5,10 +5,6 @@ public class Cliente extends Pessoa{
 	private String cpf;
 	private Endereco endereco = new Endereco();
 	
-	public Cliente() {
-		
-	}
-	
 	public Cliente(Integer id, String nome, String email, String cpf, String cep, 
 			String cidade, String endereco, String numero, String bairro, String uf) {
 		
