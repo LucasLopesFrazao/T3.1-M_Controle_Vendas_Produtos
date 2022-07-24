@@ -25,6 +25,9 @@ public class BancoDadosCliente {
 	
 	public void adicionarCliente(Cliente cliente) {
 		clientes.add(cliente);
+		for(Cliente c: clientes) {
+			System.out.println(c);
+		}
 	}
 	
 	public List<Cliente> obterTodosClientes(){

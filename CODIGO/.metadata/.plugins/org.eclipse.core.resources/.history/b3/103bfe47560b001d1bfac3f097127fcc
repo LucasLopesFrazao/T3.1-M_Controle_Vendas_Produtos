@@ -485,44 +485,34 @@ public class ControleCliente extends javax.swing.JDialog {
 
     private void controleClienteBtnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {                                                              
         // TODO add your handling code here:
-    	DefaultTableModel tabelaClientes = (DefaultTableModel) controleClienteTblClientes.getModel();
-
-        while (controleClienteTblClientes.getModel().getRowCount() > 0) {  
-               ((DefaultTableModel) controleClienteTblClientes.getModel()).setRowCount(0);  
-           }
-
     	List<Cliente> todosClientes = bancoDadosCliente.obterTodosClientes();
     	
-    	for(Cliente c: todosClientes) {
-    		// PEGAR DADOS
-    		Integer codigo = c.getId(); 
-    		String nome = c.getNome();
-    		String email = c.getEmail(); 
-    		String cpf = c.getCpf();
-    		String cep = c.getEndereco().getCep(); 
-    		String endereco = c.getEndereco().getEndereco(); 
-    		String numero = c.getEndereco().getNumero();
-    		String bairro = c.getEndereco().getBairro();
-    		String cidade = c.getEndereco().getCidade();
-    		String uf = c.getEndereco().getUf();
-    		
-    		// INSERIR DADOS NUM NOVO ARRAY
-    		Object[] novoCliente = new Object[] {
-    				codigo,
-    				nome,
-    				email,
-    				cpf,
-    				cep,
-    				endereco,
-    				numero,
-    				bairro,
-    				cidade,
-    				uf
-    		};
-    		
-    		// NOVA LINHA TABELA
-    		tabelaClientes.addRow(novoCliente);
-    	}	
+    	Cliente c = todosClientes.get(0);
+    	Integer codigo = c.getId(); 
+    	String nome = c.getNome();
+    	String email = c.getEmail(); 
+    	String cpf = c.getCpf();
+    	String cep = c.getEndereco().getCep(); 
+    	String endereco = c.getEndereco().getEndereco(); 
+    	String numero = c.getEndereco().getNumero();
+    	String bairro = c.getEndereco().getBairro();
+    	String cidade = c.getEndereco().getCidade();
+    	String uf = c.getEndereco().getUf();
+    	
+    	DefaultTableModel tabelaClientes = (DefaultTableModel) controleClienteTblClientes.getModel();
+    	
+    	Object[] novoCliente = new Object[] {
+    			codigo,
+    			nome,
+    			email,
+    			cpf,
+    			cep
+    			endereco,
+    			numero,
+    			bairro
+    			cidade,
+    			uf
+    	}
     }                                                             
 
     /**
