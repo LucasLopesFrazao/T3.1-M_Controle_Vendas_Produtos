@@ -13,16 +13,6 @@ public class Endereco {
 		
 	}
 	
-	public Endereco(String cep, String endereco, String numero, String bairro, String cidade, String uf) {
-		super();
-		this.cep = cep;
-		this.endereco = endereco;
-		this.numero = numero;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.uf = uf;
-	}
-	
 	public String getCep() {
 		return cep;
 	}
@@ -59,4 +49,11 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
+
+	@Override
+	public String toString() {
+		return "Endereco [cep=" + cep + ", endereco=" + endereco + ", numero=" + numero + ", bairro=" + bairro
+				+ ", cidade=" + cidade + ", uf=" + uf + "]";
+	}
+	
 }

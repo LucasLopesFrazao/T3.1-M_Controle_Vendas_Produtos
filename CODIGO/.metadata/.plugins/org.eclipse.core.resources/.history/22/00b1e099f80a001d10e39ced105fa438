@@ -1,0 +1,19 @@
+package application;
+
+import controle.ControleCliente;
+import modelo.Cliente;
+import view.Principal;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		//Principal.main(args);
+		//clientes.add(new Cliente(1, "Lucas", "lucas@emaio.com", "043.547.991-11"));
+		
+		ControleCliente cc = new ControleCliente();
+		System.out.println(cc.ultimoCodigo());
+
+	}
+
+}

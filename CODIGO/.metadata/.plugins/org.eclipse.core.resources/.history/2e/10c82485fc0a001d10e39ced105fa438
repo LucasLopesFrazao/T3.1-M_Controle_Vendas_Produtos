@@ -1,0 +1,28 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Cliente;
+
+public class BancoDadosCliente {
+
+	private List<Cliente> clientes = new ArrayList<Cliente>();
+
+	
+	// PESQUISAR SOMENTE 1 ITEM	
+	public Cliente pesquisarCliente(Integer id) {
+		return new Cliente();
+	}
+	
+	public Integer ultimoCodigoCadastrado() {
+		clientes.add(new Cliente(1, "Lucas", "lucas@emaio.com", "043.547.991-11", "73751-170",
+				"Planaltina Goiás", "Quadra 17", "2", "Setor Norte", "GO"));
+		
+		return clientes.get((clientes.size() - 1)).getId();
+	}
+	
+	public void adicionarCliente(Cliente cliente) {
+		clientes.add(cliente);
+	}
+}

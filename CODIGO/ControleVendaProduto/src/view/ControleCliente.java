@@ -1,5 +1,9 @@
 package view;
 
+import application.Main;
+import controle.BancoDadosCliente;
+import modelo.Cliente;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -11,6 +15,8 @@ package view;
  */
 @SuppressWarnings("serial")
 public class ControleCliente extends javax.swing.JDialog {
+	
+	BancoDadosCliente bancoDadosCliente = Main.bdc;
 
     /**
      * Creates new form CadastrarCliente
@@ -18,6 +24,7 @@ public class ControleCliente extends javax.swing.JDialog {
     public ControleCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    	controleClienteInputCod.setText(String.valueOf(bancoDadosCliente.ultimoCodigoCadastrado() + 1));
     }
 
     /**
@@ -41,7 +48,7 @@ public class ControleCliente extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         controleClienteInputCPF = new javax.swing.JFormattedTextField();
-        controleClienteInputNome = new javax.swing.JFormattedTextField();
+        controleClienteInputNome = new javax.swing.JTextField();
         controleClienteEndereco = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -53,8 +60,8 @@ public class ControleCliente extends javax.swing.JDialog {
         controleClienteInputBairro = new javax.swing.JTextField();
         controleClienteInputCEP = new javax.swing.JFormattedTextField();
         controleClienteInputUF = new javax.swing.JFormattedTextField();
-        controleClienteInputNumero = new javax.swing.JFormattedTextField();
-        controleClienteInputCidade = new javax.swing.JFormattedTextField();
+        controleClienteInputCidade = new javax.swing.JTextField();
+        controleClienteInputNumero = new javax.swing.JTextField();
         controleClienteConsultar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         controleClienteTblClientes = new javax.swing.JTable();
@@ -63,6 +70,7 @@ public class ControleCliente extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         controleClienteBtnPesquisar = new javax.swing.JButton();
         controleClienteInputPesquisarNome = new javax.swing.JFormattedTextField();
+        controleClienteBtnListarTodos = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,12 +123,6 @@ public class ControleCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        try {
-            controleClienteInputNome.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("????????????????????????????????????????????????????????????????????????????????????????????????????")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         javax.swing.GroupLayout controleClienteDadosPessoaisLayout = new javax.swing.GroupLayout(controleClienteDadosPessoais);
         controleClienteDadosPessoais.setLayout(controleClienteDadosPessoaisLayout);
         controleClienteDadosPessoaisLayout.setHorizontalGroup(
@@ -132,8 +134,8 @@ public class ControleCliente extends javax.swing.JDialog {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(controleClienteDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(controleClienteInputCod)
-                    .addComponent(controleClienteInputNome, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                    .addComponent(controleClienteInputCod, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                    .addComponent(controleClienteInputNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(controleClienteDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -194,17 +196,11 @@ public class ControleCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        try {
-            controleClienteInputNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            controleClienteInputCidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("??????????????????????????????????????????????????")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        controleClienteInputNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controleClienteInputNumeroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout controleClienteEnderecoLayout = new javax.swing.GroupLayout(controleClienteEndereco);
         controleClienteEndereco.setLayout(controleClienteEnderecoLayout);
@@ -219,8 +215,8 @@ public class ControleCliente extends javax.swing.JDialog {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(controleClienteEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(controleClienteInputCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                            .addComponent(controleClienteInputCEP)))
+                            .addComponent(controleClienteInputCEP, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                            .addComponent(controleClienteInputCidade)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, controleClienteEnderecoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(controleClienteEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -240,7 +236,7 @@ public class ControleCliente extends javax.swing.JDialog {
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
                                 .addComponent(controleClienteInputNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 367, Short.MAX_VALUE))
         );
         controleClienteEnderecoLayout.setVerticalGroup(
             controleClienteEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,6 +342,14 @@ public class ControleCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        controleClienteBtnListarTodos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        controleClienteBtnListarTodos.setText("Listar todos");
+        controleClienteBtnListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controleClienteBtnListarTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout controleClienteConsultarLayout = new javax.swing.GroupLayout(controleClienteConsultar);
         controleClienteConsultar.setLayout(controleClienteConsultarLayout);
         controleClienteConsultarLayout.setHorizontalGroup(
@@ -359,12 +363,14 @@ public class ControleCliente extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(controleClienteInputPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(controleClienteBtnPesquisar))
+                        .addComponent(controleClienteBtnPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(controleClienteBtnListarTodos))
                     .addGroup(controleClienteConsultarLayout.createSequentialGroup()
                         .addComponent(controleClienteBtnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(controleClienteBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         controleClienteConsultarLayout.setVerticalGroup(
             controleClienteConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,7 +379,8 @@ public class ControleCliente extends javax.swing.JDialog {
                 .addGroup(controleClienteConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(controleClienteBtnPesquisar)
-                    .addComponent(controleClienteInputPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(controleClienteInputPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(controleClienteBtnListarTodos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -432,11 +439,49 @@ public class ControleCliente extends javax.swing.JDialog {
 
     private void controleClienteBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                                         
         // TODO add your handling code here:
-    }                                                        
+    	//Adicionando código ao input
+    	controleClienteInputCod.setText(String.valueOf(bancoDadosCliente.ultimoCodigoCadastrado() + 2));
+    	
+    	//Informações pessoais
+    	Integer novoCodigoCliente = bancoDadosCliente.ultimoCodigoCadastrado();
+    	String nomeCliente = controleClienteInputNome.getText();
+    	String emailCliente = controleClienteInputEmail.getText();
+    	String cpf = controleClienteInputCPF.getText();
+    	
+    	//Endereço
+    	String cepCliente = controleClienteInputCEP.getText();
+    	String cidadeCliente = controleClienteInputCidade.getText();
+    	String enderecoCliente = controleClienteInputEndereco.getText();
+    	String numeroCliente = controleClienteInputNumero.getText();
+    	String bairroCliente = controleClienteInputBairro.getText();
+    	String ufCliente = controleClienteInputUF.getText();
+    	
+    	//Apagando os inputs
+    	controleClienteInputEmail.setText("");
+    	controleClienteInputNome.setText("");
+    	controleClienteInputCPF.setText("");
+    	controleClienteInputCEP.setText("");
+    	controleClienteInputCidade.setText("");
+    	controleClienteInputEndereco.setText("");
+    	controleClienteInputNumero.setText("");
+    	controleClienteInputBairro.setText("");
+    	controleClienteInputUF.setText("");
+    	
+    	//Adicionando ao banco de dados
+    	bancoDadosCliente.adicionarCliente(new Cliente(novoCodigoCliente + 1, nomeCliente, emailCliente, cpf, cepCliente, cidadeCliente, enderecoCliente, numeroCliente, bairroCliente, ufCliente));
+    }                                                     
 
     private void controleClienteBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                            
         // TODO add your handling code here:
     }                                                           
+
+    private void controleClienteInputNumeroActionPerformed(java.awt.event.ActionEvent evt) {                                                           
+        // TODO add your handling code here:
+    }                                                          
+
+    private void controleClienteBtnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {                                                              
+        // TODO add your handling code here:
+    }                                                             
 
     /**
      * @param args the command line arguments
@@ -485,6 +530,7 @@ public class ControleCliente extends javax.swing.JDialog {
     private javax.swing.JButton controleClienteBtnApagarCampos;
     private javax.swing.JButton controleClienteBtnEditar;
     private javax.swing.JButton controleClienteBtnExcluir;
+    private javax.swing.JButton controleClienteBtnListarTodos;
     private javax.swing.JButton controleClienteBtnPesquisar;
     private javax.swing.JButton controleClienteBtnSalvar;
     private javax.swing.JPanel controleClienteCadastrar;
@@ -494,12 +540,12 @@ public class ControleCliente extends javax.swing.JDialog {
     private javax.swing.JTextField controleClienteInputBairro;
     private javax.swing.JFormattedTextField controleClienteInputCEP;
     private javax.swing.JFormattedTextField controleClienteInputCPF;
-    private javax.swing.JFormattedTextField controleClienteInputCidade;
+    private javax.swing.JTextField controleClienteInputCidade;
     private javax.swing.JTextField controleClienteInputCod;
     private javax.swing.JTextField controleClienteInputEmail;
     private javax.swing.JTextField controleClienteInputEndereco;
-    private javax.swing.JFormattedTextField controleClienteInputNome;
-    private javax.swing.JFormattedTextField controleClienteInputNumero;
+    private javax.swing.JTextField controleClienteInputNome;
+    private javax.swing.JTextField controleClienteInputNumero;
     private javax.swing.JFormattedTextField controleClienteInputPesquisarNome;
     private javax.swing.JFormattedTextField controleClienteInputUF;
     private javax.swing.JTabbedPane controleClienteTabbedPane;
@@ -519,3 +565,4 @@ public class ControleCliente extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration                   
 }
+

@@ -1,0 +1,17 @@
+package application;
+
+import controle.BancoDados;
+import view.Principal;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Principal.main(args);
+		//principalView.setVisible(true);
+		
+		BancoDados bancoDados = new BancoDados();
+
+	}
+
+}

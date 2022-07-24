@@ -1,0 +1,12 @@
+package application;
+
+import controle.BancoDados;
+
+public class Main {
+
+	public static void main(String[] args) {
+		BancoDados bancoDados = new BancoDados();
+
+	}
+
+}

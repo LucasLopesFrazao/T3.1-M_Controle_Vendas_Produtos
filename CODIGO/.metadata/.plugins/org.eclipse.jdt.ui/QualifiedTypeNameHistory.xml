@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="controle.BancoDados"/>
+    <fullyQualifiedTypeName name="view.Principal"/>
+    <fullyQualifiedTypeName name="controle.ControleCliente"/>
+    <fullyQualifiedTypeName name="modelo.Cliente"/>
+    <fullyQualifiedTypeName name="modelo.Endereco"/>
+    <fullyQualifiedTypeName name="controle.BancoDadosCliente"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="application.Main"/>
+</qualifiedTypeNameHistroy>
