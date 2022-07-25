@@ -30,6 +30,17 @@ public class BancoDadosCliente {
 		return cliente;
 	}
 	
+	public void excluirCliente(String cpf) {
+		int loop = 0;
+		for(Cliente c: clientes) {
+			if(c.getCpf().equals(cpf)) {
+					clientes.remove(loop);					
+					break;
+			}
+			loop += 1;
+		}
+	}
+	
 	public Integer ultimoCodigoCadastrado() {		
 		return clientes.get((clientes.size() - 1)).getId();
 	}

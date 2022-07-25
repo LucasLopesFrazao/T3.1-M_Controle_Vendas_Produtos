@@ -3,9 +3,12 @@
     <fullyQualifiedTypeName name="controle.BancoDados"/>
     <fullyQualifiedTypeName name="view.Principal"/>
     <fullyQualifiedTypeName name="controle.ControleCliente"/>
-    <fullyQualifiedTypeName name="modelo.Cliente"/>
     <fullyQualifiedTypeName name="modelo.Endereco"/>
     <fullyQualifiedTypeName name="controle.BancoDadosCliente"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="application.Main"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="modelo.Cliente"/>
 </qualifiedTypeNameHistroy>
