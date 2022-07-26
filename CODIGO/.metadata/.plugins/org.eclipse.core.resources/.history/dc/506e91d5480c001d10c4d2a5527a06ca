@@ -1,0 +1,24 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Vendedor;
+
+public class BancoDadosFuncionario {
+	
+	private List<Vendedor> vendedores = new ArrayList<Vendedor>();
+	private String departamento;
+	
+	public BancoDadosFuncionario() {
+		
+	}
+	
+	public void adicionarVendedor(Vendedor vendedor) {
+		vendedores.add(vendedor);
+		for(Vendedor v: vendedores) {
+			System.out.println(v);
+		}
+	}
+
+}

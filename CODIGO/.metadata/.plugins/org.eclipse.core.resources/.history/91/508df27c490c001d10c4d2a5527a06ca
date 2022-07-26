@@ -1,0 +1,28 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Vendedor;
+
+public class BancoDadosFuncionario {
+	
+	private List<Vendedor> vendedores = new ArrayList<Vendedor>();
+	private String departamento;
+	
+	public BancoDadosFuncionario() {
+		vendedores.add(new Vendedor(1, "Vicente Paulo Tomás Nunes", "marcelo78@hersa.com.br", "Celulares"));
+	}
+	
+	public Integer codUltimoVendedor() {
+		return vendedores.get((vendedores.size() - 1)).getId();
+	}
+	
+	public void adicionarVendedor(Vendedor vendedor) {
+		vendedores.add(vendedor);
+		for(Vendedor v: vendedores) {
+			System.out.println(v);
+		}
+	}
+
+}

@@ -22,4 +22,18 @@ public class Vendedor extends Pessoa{
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
+
+	@Override
+	public String toString() {
+		return "Id = "
+			+ super.getId()
+			+ " Nome = "
+			+ super.getNome()
+			+ " E-mail = "
+			+ super.getEmail()
+			+ " Departamento = "
+			+ this.departamento;
+	}
+	
+	
 }

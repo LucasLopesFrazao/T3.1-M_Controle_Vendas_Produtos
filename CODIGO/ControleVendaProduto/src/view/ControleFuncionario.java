@@ -1,9 +1,17 @@
-package view;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
+package view;
+
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import application.Main;
+import controle.BancoDadosFuncionario;
+import modelo.Vendedor;
 
 /**
  *
@@ -12,12 +20,15 @@ package view;
 @SuppressWarnings("serial")
 public class ControleFuncionario extends javax.swing.JDialog {
 
+    BancoDadosFuncionario bancoDados = Main.bdf;
     /**
      * Creates new form CadastrarCliente
      */
     public ControleFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        controleFuncionarioInputCod.setText(String.valueOf(bancoDados.codUltimoVendedor() + 1));
+        controleFuncionarioBtnListarTodosActionPerformed(null);
     }
 
     /**
@@ -39,9 +50,9 @@ public class ControleFuncionario extends javax.swing.JDialog {
         controleFuncionarioInputCod = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        controleFuncionarioInputNome = new javax.swing.JFormattedTextField();
         jLabel13 = new javax.swing.JLabel();
         controleFuncionarioInputDep = new javax.swing.JTextField();
+        controleFuncionarioInputNome = new javax.swing.JTextField();
         controleFuncionarioConsultar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         controleFuncionarioTblFuncionarios = new javax.swing.JTable();
@@ -49,7 +60,8 @@ public class ControleFuncionario extends javax.swing.JDialog {
         controleFuncionarioBtnEditar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         controleFuncionarioBtnPesquisar = new javax.swing.JButton();
-        controleFuncionarioInputPesquisarNome = new javax.swing.JFormattedTextField();
+        controleFuncionarioBtnListarTodos = new javax.swing.JButton();
+        controleFuncionarioInputPesquisarNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -93,18 +105,18 @@ public class ControleFuncionario extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("E-mail:");
 
-        try {
-            controleFuncionarioInputNome.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("????????????????????????????????????????????????????????????????????????????????????????????????????")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Dep.:");
 
         controleFuncionarioInputDep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 controleFuncionarioInputDepActionPerformed(evt);
+            }
+        });
+
+        controleFuncionarioInputNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controleFuncionarioInputNomeActionPerformed(evt);
             }
         });
 
@@ -118,9 +130,9 @@ public class ControleFuncionario extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(controleFuncionarioDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(controleFuncionarioInputCod)
-                    .addComponent(controleFuncionarioInputNome, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                .addGroup(controleFuncionarioDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(controleFuncionarioInputCod, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(controleFuncionarioInputNome, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(controleFuncionarioDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(controleFuncionarioDadosPessoaisLayout.createSequentialGroup()
@@ -146,10 +158,9 @@ public class ControleFuncionario extends javax.swing.JDialog {
                 .addGroup(controleFuncionarioDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(controleFuncionarioDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(controleFuncionarioInputDep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(controleFuncionarioDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(controleFuncionarioInputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(controleFuncionarioInputDep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(controleFuncionarioInputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,11 +230,19 @@ public class ControleFuncionario extends javax.swing.JDialog {
             }
         });
 
-        try {
-            controleFuncionarioInputPesquisarNome.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("????????????????????????????????????????????????????????????????????????????????????????????????????")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        controleFuncionarioBtnListarTodos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        controleFuncionarioBtnListarTodos.setText("Listar todos");
+        controleFuncionarioBtnListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controleFuncionarioBtnListarTodosActionPerformed(evt);
+            }
+        });
+
+        controleFuncionarioInputPesquisarNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controleFuncionarioInputPesquisarNomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout controleFuncionarioConsultarLayout = new javax.swing.GroupLayout(controleFuncionarioConsultar);
         controleFuncionarioConsultar.setLayout(controleFuncionarioConsultarLayout);
@@ -236,14 +255,16 @@ public class ControleFuncionario extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(controleFuncionarioInputPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(controleFuncionarioInputPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(controleFuncionarioBtnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(controleFuncionarioBtnPesquisar))
+                        .addComponent(controleFuncionarioBtnListarTodos))
                     .addGroup(controleFuncionarioConsultarLayout.createSequentialGroup()
                         .addComponent(controleFuncionarioBtnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(controleFuncionarioBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         controleFuncionarioConsultarLayout.setVerticalGroup(
             controleFuncionarioConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,6 +273,7 @@ public class ControleFuncionario extends javax.swing.JDialog {
                 .addGroup(controleFuncionarioConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(controleFuncionarioBtnPesquisar)
+                    .addComponent(controleFuncionarioBtnListarTodos)
                     .addComponent(controleFuncionarioInputPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
@@ -294,15 +316,49 @@ public class ControleFuncionario extends javax.swing.JDialog {
     }// </editor-fold>                        
 
     private void controleFuncionarioBtnApagarCamposActionPerformed(java.awt.event.ActionEvent evt) {                                                                   
-        // TODO add your handling code here:
+        // SETANDO TEXTO PARA NADA.
+        controleFuncionarioInputNome.setText("");
+        controleFuncionarioInputEmail.setText("");
+        controleFuncionarioInputDep.setText("");
     }                                                                  
 
     private void controleFuncionarioBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {                                                             
-        // TODO add your handling code here:
+    	int linhaSelecionada = controleFuncionarioTblFuncionarios.getSelectedRow(); // PEGANDO LINHA SELECIONADA
+     	
+     	if(linhaSelecionada == -1) { // SE NÃO TIVER NENHUMA LINHA SELECIONADA
+     		JOptionPane.showMessageDialog(this, "Selecione uma linha.");
+     	}else {
+     		// PEGANDO DADOS DA TABELA, DA LINHA SELECIONADA
+     		Integer id = (Integer) controleFuncionarioTblFuncionarios.getModel().getValueAt(linhaSelecionada, 0);
+         	String nome = (String) controleFuncionarioTblFuncionarios.getModel().getValueAt(linhaSelecionada, 1);
+         	String email = (String) controleFuncionarioTblFuncionarios.getModel().getValueAt(linhaSelecionada, 2);
+         	String departamento = (String) controleFuncionarioTblFuncionarios.getModel().getValueAt(linhaSelecionada, 3);
+         	
+         	// ALTERANDO SELEÇÃO DE TABBEDPANE
+         	controleFuncionarioTabbedPane.setSelectedIndex(0);
+         	
+         	// COLOCANDO DADOS A SEREM EDITADOS
+         	controleFuncionarioInputCod.setText(String.valueOf(id));
+         	controleFuncionarioInputEmail.setText(email);
+         	controleFuncionarioInputNome.setText(nome);
+         	controleFuncionarioInputDep.setText(departamento);
+     	}
     }                                                            
 
     private void controleFuncionarioBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                                              
-        // TODO add your handling code here:
+    	int linhaSelecionada = controleFuncionarioTblFuncionarios.getSelectedRow(); // PEGANDO LINHA SELECIONADA
+    	
+    	if(linhaSelecionada == -1) { // SE NÃO TIVER NENHUMA LINHA SELECIONADA
+    		JOptionPane.showMessageDialog(this, "Selecione uma linha.");
+    	}else {
+    		Integer id = (Integer) controleFuncionarioTblFuncionarios.getModel().getValueAt(linhaSelecionada, 0);
+    		bancoDados.apagarVendedor(id);    			
+    		controleFuncionarioBtnListarTodosActionPerformed(evt);
+    		JOptionPane.showMessageDialog(this, "Vendedor apagado!");
+    		
+    		// ADICIONANDO PROXIMO ID A SER CADASTRADO NO INPUT CODIGO
+    		controleFuncionarioInputCod.setText(String.valueOf(bancoDados.codUltimoVendedor() + 1));
+    	}
     }                                                             
 
     private void controleFuncionarioInputEmailActionPerformed(java.awt.event.ActionEvent evt) {                                                              
@@ -310,16 +366,100 @@ public class ControleFuncionario extends javax.swing.JDialog {
     }                                                             
 
     private void controleFuncionarioBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                                             
-        // TODO add your handling code here:
+        // PEGANO INFORMAÇÕES DOS CAMPOS
+    	Integer cod = Integer.parseInt(controleFuncionarioInputCod.getText());
+    	String nome = controleFuncionarioInputNome.getText();
+    	String email = controleFuncionarioInputEmail.getText();
+    	String departamento = controleFuncionarioInputDep.getText();
+    	
+    	// SETANDO TEXTO PARA NADA.
+        controleFuncionarioInputNome.setText("");
+        controleFuncionarioInputEmail.setText("");
+        controleFuncionarioInputDep.setText("");
+        
+        // ADICIONANDO AO BANCO DE DADOS
+    	if(bancoDados.checarId(cod)) { // CHECANDO SE JÁ EXISTE
+    		bancoDados.editarVendedor(new Vendedor(cod, nome, email, departamento));
+    	}else {
+    		bancoDados.adicionarVendedor(new Vendedor(cod, nome, email, departamento));
+    	}
+        
+        // PROXIMO ID A SER CADASTRADO
+        controleFuncionarioInputCod.setText(String.valueOf(bancoDados.codUltimoVendedor() + 1));
+        
+        // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+    	controleFuncionarioTabbedPane.setSelectedIndex(1);
+    	controleFuncionarioBtnListarTodosActionPerformed(evt);
     }                                                            
 
     private void controleFuncionarioBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                                
-        // TODO add your handling code here:
+    	// REMOVENDO DADOS DA TABELA
+        while (controleFuncionarioTblFuncionarios.getModel().getRowCount() > 0) {  
+               ((DefaultTableModel) controleFuncionarioTblFuncionarios.getModel()).setRowCount(0);  
+        }
+        
+        DefaultTableModel tabelaVendedores = (DefaultTableModel) controleFuncionarioTblFuncionarios.getModel();
+        
+        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
+        Vendedor v = bancoDados.pesquisarPorNome(controleFuncionarioInputPesquisarNome.getText()); 
+        Integer codigo = v.getId(); 
+        String nome = v.getNome();
+        String email = v.getEmail(); 
+        String departamento = v.getDepartamento();
+        
+        // INSERIR DADOS EM UM NOVO ARRAY
+        Object[] novoVendedor = new Object[] {
+            codigo,
+            nome,
+            email,
+            departamento
+        };
+
+        // ADICIONANDO DADOS ENCONTRADOS NA TABELA
+        tabelaVendedores.addRow(novoVendedor);
     }                                                               
 
     private void controleFuncionarioInputDepActionPerformed(java.awt.event.ActionEvent evt) {                                                            
         // TODO add your handling code here:
     }                                                           
+
+    private void controleFuncionarioInputNomeActionPerformed(java.awt.event.ActionEvent evt) {                                                             
+        // TODO add your handling code here:
+    }                                                            
+
+    private void controleFuncionarioBtnListarTodosActionPerformed(java.awt.event.ActionEvent evt) {                                                                  
+        DefaultTableModel tabelaVendedores = (DefaultTableModel) controleFuncionarioTblFuncionarios.getModel();
+    	List<Vendedor> todosVendedores = bancoDados.pegarTodosVendedores();
+    	
+    	// REMOVENDO DADOS DA TABELA
+        while (controleFuncionarioTblFuncionarios.getModel().getRowCount() > 0) {  
+               ((DefaultTableModel) controleFuncionarioTblFuncionarios.getModel()).setRowCount(0);  
+        }
+        
+        // PEGANDO CADA CLIENTE NO BANCO DE DADOS
+    	for(Vendedor v: todosVendedores) {
+            // PEGANDO DADOS
+            Integer codigo = v.getId(); 
+            String nome = v.getNome();
+            String email = v.getEmail(); 
+            String departamento = v.getDepartamento();
+
+            // INSERIR DADOS NUM NOVO ARRAY
+            Object[] novoVendedor = new Object[] {
+                codigo,
+                nome,
+                email,
+                departamento
+            };
+
+            // NOVA LINHA TABELA
+            tabelaVendedores.addRow(novoVendedor);
+    	}
+    }                                                                 
+
+    private void controleFuncionarioInputPesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {                                                                      
+        // TODO add your handling code here:
+    }                                                                     
 
     /**
      * @param args the command line arguments
@@ -370,6 +510,7 @@ public class ControleFuncionario extends javax.swing.JDialog {
     private javax.swing.JButton controleFuncionarioBtnApagarCampos;
     private javax.swing.JButton controleFuncionarioBtnEditar;
     private javax.swing.JButton controleFuncionarioBtnExcluir;
+    private javax.swing.JButton controleFuncionarioBtnListarTodos;
     private javax.swing.JButton controleFuncionarioBtnPesquisar;
     private javax.swing.JButton controleFuncionarioBtnSalvar;
     private javax.swing.JPanel controleFuncionarioCadastrar;
@@ -378,8 +519,8 @@ public class ControleFuncionario extends javax.swing.JDialog {
     private javax.swing.JTextField controleFuncionarioInputCod;
     private javax.swing.JTextField controleFuncionarioInputDep;
     private javax.swing.JTextField controleFuncionarioInputEmail;
-    private javax.swing.JFormattedTextField controleFuncionarioInputNome;
-    private javax.swing.JFormattedTextField controleFuncionarioInputPesquisarNome;
+    private javax.swing.JTextField controleFuncionarioInputNome;
+    private javax.swing.JTextField controleFuncionarioInputPesquisarNome;
     private javax.swing.JTabbedPane controleFuncionarioTabbedPane;
     private javax.swing.JTable controleFuncionarioTblFuncionarios;
     private javax.swing.JLabel jLabel1;
@@ -391,4 +532,3 @@ public class ControleFuncionario extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration                   
 }
-
