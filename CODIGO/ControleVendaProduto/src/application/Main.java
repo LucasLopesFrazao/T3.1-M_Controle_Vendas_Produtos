@@ -2,6 +2,7 @@ package application;
 
 import controle.BancoDadosCliente;
 import controle.BancoDadosFuncionario;
+import controle.BancoDadosProdutos;
 import view.Principal;
 
 public class Main {
@@ -14,4 +15,5 @@ public class Main {
 	
 	public static BancoDadosFuncionario bdf = new BancoDadosFuncionario();
 
+	public static BancoDadosProdutos controleProdutos = new BancoDadosProdutos();
 }

@@ -1,0 +1,16 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Produto;
+
+public class BancoDadosProdutos {
+	
+	List<Produto> produtos = new ArrayList<>();
+	
+	public BancoDadosProdutos() {
+		
+	}
+
+}

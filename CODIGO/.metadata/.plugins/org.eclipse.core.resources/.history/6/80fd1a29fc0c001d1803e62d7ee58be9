@@ -1,0 +1,16 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Produto;
+
+public class BancoDadosProdutos {
+	
+	List<Produto> produtos = new ArrayList<>();
+	
+	public BancoDadosProdutos() {
+		produtos.add(new Produto(1, 1481.00, 10, "AMD Ryzen 5"));
+	}
+
+}
