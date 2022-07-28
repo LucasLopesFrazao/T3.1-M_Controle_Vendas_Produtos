@@ -1,0 +1,19 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import application.Main;
+import modelo.Venda;
+
+public class BancoDadosVendas {
+	
+	BancoDadosFuncionario controleVendedor = Main.bdf;
+	BancoDadosCliente controleCliente = Main.bdc;
+	List<Venda> vendas = new ArrayList<>();
+	
+	public BancoDadosVendas() {
+		vendas.add(new Venda(1, new Date(), 8886.00, controleVendedor.pesquisarPorNome("Rafael"), ))
+	}
+}

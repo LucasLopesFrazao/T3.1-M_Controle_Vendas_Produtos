@@ -58,6 +58,15 @@ public class BancoDadosProdutos {
 		return new Produto();
 	}
 	
+	public Produto pesquisarProdutoId(Integer id) {
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
+		return new Produto();
+	}
+	
 	public void removeProduto(Integer id) {
 		int loop = 0;
 		for(Produto p: produtos) {

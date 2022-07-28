@@ -1,5 +1,16 @@
 package view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+
+import application.Main;
+import controle.BancoDadosVendas;
+import modelo.Venda;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -12,6 +23,7 @@ package view;
 @SuppressWarnings("serial")
 public class ConsultarVendas extends javax.swing.JDialog {
 
+    BancoDadosVendas controleVendas = Main.controleVendas;
     /**
      * Creates new form CadastrarCliente
      */
@@ -153,8 +165,56 @@ public class ConsultarVendas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>                        
 
-    private void ConsultarVendaBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                           
-        // TODO add your handling code here:
+    private void ConsultarVendaBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt){                                                           
+        String dataInicial = ConsultarVendaDataInicial.getText();
+        String dataFinal = ConsultarVendaDataFinal.getText();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataInicialFormatada = null;
+        Date dataFinalFormatada = null;
+        
+        try {
+        	dataInicialFormatada = formato.parse(dataInicial);
+        } catch (ParseException e1) {
+        	// TODO Auto-generated catch block
+        	e1.printStackTrace();
+        }
+        
+		try {
+			dataFinalFormatada = formato.parse(dataFinal);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<Venda> vendasConsultadas = controleVendas.consultarVenda(dataInicialFormatada, dataFinalFormatada);
+		DefaultTableModel tabelaVendas = (DefaultTableModel) ConsultarVendaTblVendas.getModel();
+		// REMOVENDO DADOS DA TABELA
+        while (ConsultarVendaTblVendas.getModel().getRowCount() > 0) {  
+               ((DefaultTableModel) ConsultarVendaTblVendas.getModel()).setRowCount(0);  
+        }
+        
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        
+        for(Venda v: vendasConsultadas) {
+            // PEGANDO DADOS
+            Integer codigo = v.getId(); 
+            String data = out.format(v.getDataVenda());
+            String nomeCliente = v.getCliente().getNome();
+            String funcionario = v.getVendedor().getNome();
+            String preco = String.format("%.2f", v.getValorVenda());
+
+            // INSERIR DADOS NUM NOVO ARRAY
+            Object[] novaVenda = new Object[] {
+                codigo,
+                data,
+                nomeCliente,
+                funcionario,
+                preco
+            };
+
+            // NOVA LINHA TABELA
+            tabelaVendas.addRow(novaVenda);
+    	}
     }                                                          
 
     /**

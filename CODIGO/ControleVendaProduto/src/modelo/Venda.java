@@ -18,12 +18,13 @@ public class Venda {
 		
 	}
 
-	public Venda(Integer id, Date dataVenda, Double valorVenda, Vendedor vendedor, Cliente cliente) {
+	public Venda(Integer id, Date dataVenda, Double valorVenda, Vendedor vendedor, Cliente cliente, List<Pedido> carrinho) {
 		this.id = id;
 		this.dataVenda = dataVenda;
 		this.valorVenda = valorVenda;
 		this.vendedor = vendedor;
 		this.cliente = cliente;
+		this.carrinho = carrinho;
 	}
 
 	public Integer getId() {
@@ -69,10 +70,10 @@ public class Venda {
 	public void adicionarAoCarrinho(Pedido pedido) {
 		carrinho.add(pedido);
 	}
-	
-	public void totalVenda() {
-		// TODO
-	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Venda [id=" + id + ", dataVenda=" + dataVenda + ", valorVenda=" + valorVenda + ", vendedor=" + vendedor
+				+ ", cliente=" + cliente + ", carrinho=" + carrinho + "]";
+	}	
 }

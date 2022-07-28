@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="controleFuncionarioBtnEditarAc"/>
+		<item key="selection" value="AdicionarCarrinho"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="adicionarcarrinhoA"/>
+			<item value="adicionarcarrinho"/>
 			<item value="controleFuncionarioBtnEditarAc"/>
 			<item value="controleFuncionarioBtnEditar"/>
 			<item value="unci"/>
@@ -21,7 +23,6 @@
 			<item value="controleClienteBtnPesquisarActionPerformed"/>
 			<item value="controleClienteBtnListarTodosActionPerformed"/>
 			<item value="bancoDadosCliente"/>
-			<item value="controleClienteBtnSalvarActionPerformed"/>
 		</list>
 		<list key="replacehistory">
 		</list>

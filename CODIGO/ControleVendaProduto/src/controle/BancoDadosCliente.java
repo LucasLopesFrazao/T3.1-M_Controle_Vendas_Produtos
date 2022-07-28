@@ -10,7 +10,7 @@ public class BancoDadosCliente {
 	private List<Cliente> clientes = new ArrayList<Cliente>();
 	
 	public BancoDadosCliente() {
-		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "800.250.333-36", "41306-065",
+		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "878.745.654-11", "41306-065",
 				"Salvador", "Vila das Margaridas", "229", "Nova Brasília de Valéria", "BA"));
 		
 		clientes.add(new Cliente(2, "Isadora Elaine", "isadora-elaine@foar.unesp.br", "619.021.645-55", "79790-970",

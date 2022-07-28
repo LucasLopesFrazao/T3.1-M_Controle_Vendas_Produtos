@@ -1,0 +1,15 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Venda;
+
+public class BancoDadosVendas {
+	
+	List<Venda> vendas = new ArrayList<>();
+	
+	public BancoDadosVendas() {
+		
+	}
+}

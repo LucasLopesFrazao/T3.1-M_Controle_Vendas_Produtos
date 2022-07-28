@@ -48,4 +48,11 @@ public class Pedido {
 	public void adicionarProduto(Produto produto) {
 		setProduto(produto);
 	}
+
+	@Override
+	public String toString() {
+		return "Pedido [produto=" + produto + ", quantidade=" + quantidade + ", precoTotal=" + precoTotal + "]";
+	}
+	
+	
 }

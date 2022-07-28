@@ -17,6 +17,13 @@ public class Produto {
 		this.qtdEstoque = qtdEstoque;
 		this.nome = nome;
 	}
+	
+	public Produto(Integer id, Double preco, String nome) {
+		this.id = id;
+		this.preco = preco;
+		this.nome = nome;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -53,4 +60,11 @@ public class Produto {
 	public void adicionarEstoque(Integer quantidade) {
 		this.qtdEstoque += quantidade;
 	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", preco=" + preco + ", qtdEstoque=" + qtdEstoque + ", nome=" + nome + "]";
+	}
+	
+	
 }
