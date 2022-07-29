@@ -13,16 +13,20 @@
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="view.ControleProduto"/>
     <fullyQualifiedTypeName name="java.lang.Double"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="application.Main"/>
     <fullyQualifiedTypeName name="controle.BancoDadosFuncionario"/>
     <fullyQualifiedTypeName name="controle.BancoDadosCliente"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="controle.BancoDadosProdutos"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="modelo.Produto"/>
     <fullyQualifiedTypeName name="controle.BancoDadosVendas"/>
-    <fullyQualifiedTypeName name="modelo.Venda"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="modelo.Pedido"/>
+    <fullyQualifiedTypeName name="modelo.Produto"/>
+    <fullyQualifiedTypeName name="modelo.Venda"/>
+    <fullyQualifiedTypeName name="javax.swing.JDialog"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="view.TelaProduto"/>
+    <fullyQualifiedTypeName name="view.TelaCliente"/>
+    <fullyQualifiedTypeName name="view.TelaPrincipal"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

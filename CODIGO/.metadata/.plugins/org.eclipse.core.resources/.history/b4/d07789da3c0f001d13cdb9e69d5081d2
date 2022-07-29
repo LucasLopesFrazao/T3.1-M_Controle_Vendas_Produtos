@@ -1,0 +1,22 @@
+package application;
+
+import controle.ControleCliente;
+import controle.ControleVendedor;
+import controle.BancoDadosProdutos;
+import controle.BancoDadosVendas;
+import view.Principal;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Principal.main(args);
+	}
+	
+	public static ControleCliente controleCliente = new ControleCliente();
+	
+	public static ControleVendedor controleVendedor = new ControleVendedor();
+
+	public static BancoDadosProdutos controleProdutos = new BancoDadosProdutos();
+	
+	public static BancoDadosVendas controleVendas = new BancoDadosVendas();
+}

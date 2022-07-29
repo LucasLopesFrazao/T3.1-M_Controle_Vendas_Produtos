@@ -1,10 +1,12 @@
 package modelo;
 
-public class Cliente extends Pessoa{
-
+public class Cliente extends PessoaAbstrata{
+	
+	//ATRIBUTOS
 	private String cpf;
 	private Endereco endereco = new Endereco();
 	
+	//CONSTRUTORES
 	public Cliente() {
 		
 	}
@@ -26,6 +28,7 @@ public class Cliente extends Pessoa{
 		this.endereco.setUf(uf);
 	}
 
+	//GETTERS E SETTERS
 	public String getCpf() {
 		return cpf;
 	}
@@ -44,19 +47,8 @@ public class Cliente extends Pessoa{
 
 	@Override
 	public String toString() {
-		return "Id = " 
-				+ super.getId()
-				+ " Nome = "
-				+ super.getNome()
-				+ " Email = "
-				+ super.getEmail()
-				+ " CPF = "
-				+ this.cpf
-				+ " Endereço = "
-				+ this.endereco;
-	}
-	
-	
+		return "Cliente [cpf=" + cpf + ", endereco=" + endereco + "]";
+	}	
 }
 
 

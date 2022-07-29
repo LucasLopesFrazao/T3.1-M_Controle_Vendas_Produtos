@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="AdicionarCarrinho"/>
+		<item key="selection" value="TotalVenda"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="obterTodasVendas"/>
+			<item value="totalVenda"/>
+			<item value="totalv"/>
+			<item value="controleVendas"/>
+			<item value="controleVenda"/>
+			<item value="as"/>
+			<item value="todasvend"/>
+			<item value="todasvendas"/>
+			<item value="codigoUltimoProdutoCadastrado"/>
+			<item value="bancoDadosCliente"/>
+			<item value="bancoDados"/>
 			<item value="adicionarcarrinhoA"/>
 			<item value="adicionarcarrinho"/>
 			<item value="controleFuncionarioBtnEditarAc"/>
 			<item value="controleFuncionarioBtnEditar"/>
-			<item value="unci"/>
-			<item value="controleFuncionarioBtnApagarCamposAc"/>
-			<item value="controleClienteBtnExcluirAc"/>
-			<item value="controleClienteBtnExcluir"/>
-			<item value="controleClienteBtnApagarCamposActionPerformed"/>
-			<item value="controleClienteBtnEditarActionPerformed"/>
-			<item value="+ 1"/>
-			<item value="+ 2"/>
-			<item value="controleClienteBtnPesquisarActionPerformed"/>
-			<item value="controleClienteBtnListarTodosActionPerformed"/>
-			<item value="bancoDadosCliente"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="controleVenda"/>
+			<item value="ultimoCodigoCadastrado"/>
+			<item value="controleCliente"/>
+			<item value="controleVendedor"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="304"/>
-		<item key="DIALOG_Y_ORIGIN" value="167"/>
+		<item key="DIALOG_X_ORIGIN" value="799"/>
+		<item key="DIALOG_Y_ORIGIN" value="106"/>
 		<item key="DIALOG_WIDTH" value="322"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>

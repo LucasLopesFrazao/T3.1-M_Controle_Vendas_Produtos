@@ -2,10 +2,12 @@ package modelo;
 
 public class Pedido {
 
+	//ATRIBUTOS
 	private Produto produto;
 	private Integer quantidade;
 	private Double  precoTotal;
 	
+	//CONSTRUTORES
 	public Pedido() {
 		
 	}
@@ -16,6 +18,7 @@ public class Pedido {
 		this.precoTotal = precoTotal;
 	}
 
+	//GETTERS E SETTERS
 	public Produto getProduto() {
 		return produto;
 	}
@@ -53,6 +56,4 @@ public class Pedido {
 	public String toString() {
 		return "Pedido [produto=" + produto + ", quantidade=" + quantidade + ", precoTotal=" + precoTotal + "]";
 	}
-	
-	
 }

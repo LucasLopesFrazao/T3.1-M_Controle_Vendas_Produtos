@@ -1,9 +1,11 @@
 package modelo;
 
-public class Vendedor extends Pessoa{
-
+public class Vendedor extends PessoaAbstrata{
+	
+	//ATRIBUTOS
 	private String departamento;
 	
+	//CONSTRUTORES
 	public Vendedor() {
 		
 	}
@@ -15,6 +17,7 @@ public class Vendedor extends Pessoa{
 		this.departamento = departamento;
 	}
 
+	//GETTERS E SETTERS
 	public String getDepartamento() {
 		return departamento;
 	}
@@ -25,15 +28,6 @@ public class Vendedor extends Pessoa{
 
 	@Override
 	public String toString() {
-		return "Id = "
-			+ super.getId()
-			+ " Nome = "
-			+ super.getNome()
-			+ " E-mail = "
-			+ super.getEmail()
-			+ " Departamento = "
-			+ this.departamento;
+		return "Vendedor [departamento=" + departamento + "]";
 	}
-	
-	
 }

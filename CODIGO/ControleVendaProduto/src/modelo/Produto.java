@@ -2,11 +2,13 @@ package modelo;
 
 public class Produto {
 	
+	//ATRIBUTOS
 	private Integer id;
 	private Double preco;
 	private Integer qtdEstoque;
 	private String nome;
 	
+	//CONSTRUTORES
 	public Produto() {
 		
 	}
@@ -24,7 +26,7 @@ public class Produto {
 		this.nome = nome;
 	}
 
-
+	//GETTERS E SETTERS
 	public Integer getId() {
 		return id;
 	}
@@ -65,6 +67,4 @@ public class Produto {
 	public String toString() {
 		return "Produto [id=" + id + ", preco=" + preco + ", qtdEstoque=" + qtdEstoque + ", nome=" + nome + "]";
 	}
-	
-	
 }

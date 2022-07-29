@@ -6,14 +6,15 @@ import java.util.List;
 
 public class Venda {
 
+	//ATRIBUTOS
 	private Integer id;
 	private Date dataVenda;
 	private Double valorVenda;
 	private Vendedor vendedor;
 	private Cliente cliente;
-	
 	private List<Pedido> carrinho = new ArrayList<Pedido>();
 	
+	//CONSTRUTORES
 	public Venda() {
 		
 	}
@@ -27,6 +28,7 @@ public class Venda {
 		this.carrinho = carrinho;
 	}
 
+	//GETTERS E SETTERS
 	public Integer getId() {
 		return id;
 	}
