@@ -379,72 +379,51 @@ public class TelaVendedor extends javax.swing.JDialog {
     	String email = controleFuncionarioInputEmail.getText();
     	String departamento = controleFuncionarioInputDep.getText();
     	
+    	// SETANDO TEXTO PARA NADA.
+        controleFuncionarioInputNome.setText("");
+        controleFuncionarioInputEmail.setText("");
+        controleFuncionarioInputDep.setText("");
+        
         // ADICIONANDO AO BANCO DE DADOS
-    	if(!controleVendedor.validarEmail(email)) {
-    		JOptionPane.showMessageDialog(this, "E-mail inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-    	}else if(controleFuncionarioInputNome.getText().equals("") ||
-    			controleFuncionarioInputEmail.getText().equals("") ||
-    			controleFuncionarioInputDep.getText().equals("")
-    			) {
-    		JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-    	}else if(controleVendedor.checarId(cod)) { // CHECANDO SE JÁ EXISTE
+    	if(controleVendedor.checarId(cod)) { // CHECANDO SE JÁ EXISTE
     		controleVendedor.editarVendedor(new Vendedor(cod, nome, email, departamento));
-    		// PROXIMO ID A SER CADASTRADO
-            controleFuncionarioInputCod.setText(String.valueOf(controleVendedor.ultimoCodigoCadastrado() + 1));
-         
-            // SETANDO TEXTO PARA NADA.
-            controleFuncionarioInputNome.setText("");
-            controleFuncionarioInputEmail.setText("");
-            controleFuncionarioInputDep.setText("");
-            
-            // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-        	controleFuncionarioTabbedPane.setSelectedIndex(1);
-        	controleFuncionarioBtnListarTodosActionPerformed(evt);
     	}else {
     		controleVendedor.adicionarVendedor(new Vendedor(cod, nome, email, departamento));
-    		// PROXIMO ID A SER CADASTRADO
-    		controleFuncionarioInputCod.setText(String.valueOf(controleVendedor.ultimoCodigoCadastrado() + 1));
-    		
-    		// SETANDO TEXTO PARA NADA.
-            controleFuncionarioInputNome.setText("");
-            controleFuncionarioInputEmail.setText("");
-            controleFuncionarioInputDep.setText("");
-    		
-    		// ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-    		controleFuncionarioTabbedPane.setSelectedIndex(1);
-    		controleFuncionarioBtnListarTodosActionPerformed(evt);
     	}
+        
+        // PROXIMO ID A SER CADASTRADO
+        controleFuncionarioInputCod.setText(String.valueOf(controleVendedor.ultimoCodigoCadastrado() + 1));
+        
+        // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+    	controleFuncionarioTabbedPane.setSelectedIndex(1);
+    	controleFuncionarioBtnListarTodosActionPerformed(evt);
     }                                                            
 
     private void controleFuncionarioBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                                
-    	if(controleFuncionarioInputPesquisarNome.getText().equals("")) {
-    		JOptionPane.showMessageDialog(this, "Digite um nome válido!", "Erro", JOptionPane.ERROR_MESSAGE);
-    	}else {
-	    	// REMOVENDO DADOS DA TABELA
-	        while (controleFuncionarioTblFuncionarios.getModel().getRowCount() > 0) {  
-	               ((DefaultTableModel) controleFuncionarioTblFuncionarios.getModel()).setRowCount(0);  
-	        }
-	        
-	        DefaultTableModel tabelaVendedores = (DefaultTableModel) controleFuncionarioTblFuncionarios.getModel();
-	        
-	        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
-	        Vendedor v = controleVendedor.pesquisarPorNome(controleFuncionarioInputPesquisarNome.getText()); 
-	        Integer codigo = v.getId(); 
-	        String nome = v.getNome();
-	        String email = v.getEmail(); 
-	        String departamento = v.getDepartamento();
-	        
-	        // INSERIR DADOS EM UM NOVO ARRAY
-	        Object[] novoVendedor = new Object[] {
-	            codigo,
-	            nome,
-	            email,
-	            departamento
-	        };
-	
-	        // ADICIONANDO DADOS ENCONTRADOS NA TABELA
-	        tabelaVendedores.addRow(novoVendedor);
-    	}
+        // REMOVENDO DADOS DA TABELA
+        while (controleFuncionarioTblFuncionarios.getModel().getRowCount() > 0) {  
+               ((DefaultTableModel) controleFuncionarioTblFuncionarios.getModel()).setRowCount(0);  
+        }
+        
+        DefaultTableModel tabelaVendedores = (DefaultTableModel) controleFuncionarioTblFuncionarios.getModel();
+        
+        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
+        Vendedor v = controleVendedor.pesquisarPorNome(controleFuncionarioInputPesquisarNome.getText()); 
+        Integer codigo = v.getId(); 
+        String nome = v.getNome();
+        String email = v.getEmail(); 
+        String departamento = v.getDepartamento();
+        
+        // INSERIR DADOS EM UM NOVO ARRAY
+        Object[] novoVendedor = new Object[] {
+            codigo,
+            nome,
+            email,
+            departamento
+        };
+
+        // ADICIONANDO DADOS ENCONTRADOS NA TABELA
+        tabelaVendedores.addRow(novoVendedor);
     }                                                               
 
     private void controleFuncionarioInputDepActionPerformed(java.awt.event.ActionEvent evt) {                                                            

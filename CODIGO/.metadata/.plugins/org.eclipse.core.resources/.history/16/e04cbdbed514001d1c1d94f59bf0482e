@@ -414,9 +414,11 @@ public class TelaVendedor extends javax.swing.JDialog {
     		controleFuncionarioTabbedPane.setSelectedIndex(1);
     		controleFuncionarioBtnListarTodosActionPerformed(evt);
     	}
+        
     }                                                            
 
     private void controleFuncionarioBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                                
+        
     	if(controleFuncionarioInputPesquisarNome.getText().equals("")) {
     		JOptionPane.showMessageDialog(this, "Digite um nome válido!", "Erro", JOptionPane.ERROR_MESSAGE);
     	}else {

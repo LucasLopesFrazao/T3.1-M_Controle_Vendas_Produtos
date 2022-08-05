@@ -565,7 +565,7 @@ public class TelaCliente extends javax.swing.JDialog {
     		controleClienteTabbedPane.setSelectedIndex(1);
     		controleClienteBtnListarTodosActionPerformed(evt);
     	}else { // CLIENTE COM ID NOVO
-    		if(controleCliente.cpfNoSistema(cpf)) {
+    		if(controleCliente.CPFNoSistema(cpf)) {
     			JOptionPane.showMessageDialog(this, "CPF já cadastrado no sistema!", "Erro", JOptionPane.ERROR_MESSAGE); 
     		}else {
 	    		controleCliente.adicionarCliente(new Cliente(novoCodigoCliente, nomeCliente, emailCliente, cpf, cepCliente, cidadeCliente, enderecoCliente, numeroCliente, bairroCliente, ufCliente));
