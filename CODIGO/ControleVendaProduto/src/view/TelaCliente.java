@@ -29,6 +29,7 @@ public class TelaCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1));
+        controleClienteInputUF.setText("AC");
         controleClienteBtnListarTodosActionPerformed(null);
     }
 
@@ -66,6 +67,7 @@ public class TelaCliente extends javax.swing.JDialog {
         controleClienteInputUF = new javax.swing.JFormattedTextField();
         controleClienteInputCidade = new javax.swing.JTextField();
         controleClienteInputNumero = new javax.swing.JTextField();
+        controleClienteEstados = new javax.swing.JComboBox<>();
         controleClienteConsultar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         controleClienteTblClientes = new javax.swing.JTable();
@@ -199,6 +201,7 @@ public class TelaCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        controleClienteInputUF.setEditable(false);
         try {
             controleClienteInputUF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UU")));
         } catch (java.text.ParseException ex) {
@@ -208,6 +211,13 @@ public class TelaCliente extends javax.swing.JDialog {
         controleClienteInputNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 controleClienteInputNumeroActionPerformed(evt);
+            }
+        });
+
+        controleClienteEstados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MS", "MT", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        controleClienteEstados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controleClienteEstadosActionPerformed(evt);
             }
         });
 
@@ -244,8 +254,10 @@ public class TelaCliente extends javax.swing.JDialog {
                             .addGroup(controleClienteEnderecoLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(controleClienteInputNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 578, Short.MAX_VALUE))
+                                .addComponent(controleClienteInputNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(controleClienteEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 488, Short.MAX_VALUE))
         );
         controleClienteEnderecoLayout.setVerticalGroup(
             controleClienteEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +284,8 @@ public class TelaCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(controleClienteEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(controleClienteInputUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(controleClienteInputUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(controleClienteEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -481,14 +494,18 @@ public class TelaCliente extends javax.swing.JDialog {
 
     private void controleClienteBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                                          
         int linhaSelecionada = controleClienteTblClientes.getSelectedRow(); // PEGANDO LINHA SELECIONADA
+        DefaultTableModel tabelaClientes = (DefaultTableModel) controleClienteTblClientes.getModel();
     	
     	if(linhaSelecionada == -1) { // SE NÃO TIVER NENHUMA LINHA SELECIONADA
     		JOptionPane.showMessageDialog(this, "Selecione uma linha.");
+    	}else if(tabelaClientes.getRowCount() == 1 && linhaSelecionada == 0){
+    		JOptionPane.showMessageDialog(this, "É necessário ao menos 1 cliente no sistema.");    		
+    		controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1));
     	}else {
     		String cpf = (String) controleClienteTblClientes.getModel().getValueAt(linhaSelecionada, 3);
     		controleCliente.excluirCliente(cpf);    			
     		controleClienteBtnListarTodosActionPerformed(evt);
-    		JOptionPane.showMessageDialog(this, "Cliente apagado!");
+    		JOptionPane.showMessageDialog(this, "Cliente apagado!", "Finalizado", JOptionPane.INFORMATION_MESSAGE);
     		
     		// ADICIONANDO PROXIMO ID A SER CADASTRADO NO INPUT CODIGO
     		controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1));
@@ -499,13 +516,12 @@ public class TelaCliente extends javax.swing.JDialog {
         // TODO EXCLUIR ISSO
     }                                                         
 
-    private void controleClienteBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-       //PEGANDO INFORMAÇÕES
+    private void controleClienteBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {        
+    	//PEGANDO INFORMAÇÕES DIGITADAS
     	Integer novoCodigoCliente = Integer.parseInt(controleClienteInputCod.getText());
     	String nomeCliente = controleClienteInputNome.getText();
     	String emailCliente = controleClienteInputEmail.getText();
     	String cpf = controleClienteInputCPF.getText();
-    	
     	String cepCliente = controleClienteInputCEP.getText();
     	String cidadeCliente = controleClienteInputCidade.getText();
     	String enderecoCliente = controleClienteInputEndereco.getText();
@@ -513,69 +529,108 @@ public class TelaCliente extends javax.swing.JDialog {
     	String bairroCliente = controleClienteInputBairro.getText();
     	String ufCliente = controleClienteInputUF.getText();
     	
-    	// APAGANDO OS INPUTS DIGITADOS
-    	controleClienteInputEmail.setText("");
-    	controleClienteInputNome.setText("");
-    	controleClienteInputCPF.setText("");
-    	controleClienteInputCEP.setText("");
-    	controleClienteInputCidade.setText("");
-    	controleClienteInputEndereco.setText("");
-    	controleClienteInputNumero.setText("");
-    	controleClienteInputBairro.setText("");
-    	controleClienteInputUF.setText("");
-    	
-    	// ADICIONANDO AO BANCO DE DADOS
-    	if(controleCliente.checarId(novoCodigoCliente)) { // CHECANDO SE JÁ EXISTE
-    		controleCliente.editarCliente(new Cliente(novoCodigoCliente, nomeCliente, emailCliente, cpf, cepCliente, cidadeCliente, enderecoCliente, numeroCliente, bairroCliente, ufCliente));
-    	}else {
-    		controleCliente.adicionarCliente(new Cliente(novoCodigoCliente, nomeCliente, emailCliente, cpf, cepCliente, cidadeCliente, enderecoCliente, numeroCliente, bairroCliente, ufCliente));
+    	// CHECAGENS
+    	if(!controleCliente.validarCPF(cpf)) { // CPF INVÁLIDO
+    		JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+    	}else if(controleClienteInputNome.getText().equals("") ||
+    			controleClienteInputEmail.getText().equals("") ||
+    			controleClienteInputCPF.getText().equals("") ||
+    			controleClienteInputCEP.getText().equals("") ||
+    			controleClienteInputCidade.getText().equals("") ||
+    			controleClienteInputNumero.getText().equals("") ||
+    			controleClienteInputBairro.getText().equals("") ||
+    			controleClienteInputUF.getText().equals("")
+    			) { // CAMPOS EM BRANCO
+    		JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);    		
+    	}else if(!controleCliente.validarEmail(emailCliente)) { // EMAIL INVÁLIDO
+    		JOptionPane.showMessageDialog(this, "E-mail inválido", "Erro", JOptionPane.ERROR_MESSAGE);    		
     	}
-    	
-    	// ADICIONANDO PROXIMO ID A SER CADASTRADO NO INPUT CODIGO
-    	controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1));
-    	
-    	// ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-    	controleClienteTabbedPane.setSelectedIndex(1);
-    	controleClienteBtnListarTodosActionPerformed(evt);
+    	else if(controleCliente.checarId(novoCodigoCliente)) { // CHECANDO SE O ID DO CLIENTE JÁ EXISTE E OS DADOS ESTÃO SENDO EDITADOS
+    		controleCliente.editarCliente(new Cliente(novoCodigoCliente, nomeCliente, emailCliente, cpf, cepCliente, cidadeCliente, enderecoCliente, numeroCliente, bairroCliente, ufCliente));
+    		// APAGANDO OS INPUTS DIGITADOS
+    		controleClienteInputEmail.setText("");
+    		controleClienteInputNome.setText("");
+    		controleClienteInputCPF.setText("");
+    		controleClienteInputCEP.setText("");
+    		controleClienteInputCidade.setText("");
+    		controleClienteInputEndereco.setText("");
+    		controleClienteInputNumero.setText("");
+    		controleClienteInputBairro.setText("");
+    		controleClienteInputUF.setText("");
+    		
+    		// ADICIONANDO PROXIMO ID A SER CADASTRADO NO INPUT CODIGO
+    		controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1));
+    		
+    		// ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+    		controleClienteTabbedPane.setSelectedIndex(1);
+    		controleClienteBtnListarTodosActionPerformed(evt);
+    	}else { // CLIENTE COM ID NOVO
+    		if(controleCliente.CPFNoSistema(cpf)) {
+    			JOptionPane.showMessageDialog(this, "CPF já cadastrado no sistema!", "Erro", JOptionPane.ERROR_MESSAGE); 
+    		}else {
+	    		controleCliente.adicionarCliente(new Cliente(novoCodigoCliente, nomeCliente, emailCliente, cpf, cepCliente, cidadeCliente, enderecoCliente, numeroCliente, bairroCliente, ufCliente));
+	    		// APAGANDO OS INPUTS DIGITADOS
+	    		controleClienteInputEmail.setText("");
+	    		controleClienteInputNome.setText("");
+	    		controleClienteInputCPF.setText("");
+	    		controleClienteInputCEP.setText("");
+	    		controleClienteInputCidade.setText("");
+	    		controleClienteInputEndereco.setText("");
+	    		controleClienteInputNumero.setText("");
+	    		controleClienteInputBairro.setText("");
+	    		controleClienteInputUF.setText("");
+	    		
+	    		// ADICIONANDO PROXIMO ID A SER CADASTRADO NO INPUT CODIGO
+	    		controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1));
+	    		
+	    		// ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+	    		controleClienteTabbedPane.setSelectedIndex(1);
+	    		controleClienteBtnListarTodosActionPerformed(evt);
+    		}
+    	}
     }                                                        
 
-    private void controleClienteBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                            
-        // REMOVENDO DADOS DA TABELA
-        while (controleClienteTblClientes.getModel().getRowCount() > 0) {  
-               ((DefaultTableModel) controleClienteTblClientes.getModel()).setRowCount(0);  
-        }
-        
-        DefaultTableModel tabelaClientes = (DefaultTableModel) controleClienteTblClientes.getModel();
-        
-        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
-        Cliente c = controleCliente.pesquisarClientePorCPF(controleClienteInputPesquisarCPF.getText()); 
-        Integer codigo = c.getId(); 
-        String nome = c.getNome();
-        String email = c.getEmail(); 
-        String cpf = c.getCpf();
-        String cep = c.getEndereco().getCep(); 
-        String endereco = c.getEndereco().getEndereco(); 
-        String numero = c.getEndereco().getNumero();
-        String bairro = c.getEndereco().getBairro();
-        String cidade = c.getEndereco().getCidade();
-        String uf = c.getEndereco().getUf();
-
-        // INSERIR DADOS EM UM NOVO ARRAY
-        Object[] novoCliente = new Object[] {
-            codigo,
-            nome,
-            email,
-            cpf,
-            cep,
-            endereco,
-            numero,
-            bairro,
-            cidade,
-            uf
-        };
-
-        // ADICIONANDO DADOS ENCONTRADOS NA TABELA
-        tabelaClientes.addRow(novoCliente);
+    private void controleClienteBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {
+    	if(!controleCliente.validarCPF(controleClienteInputPesquisarCPF.getText())) {
+    		JOptionPane.showMessageDialog(this, "CPF inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+    	}else {
+	        // REMOVENDO DADOS DA TABELA
+	        while (controleClienteTblClientes.getModel().getRowCount() > 0) {  
+	               ((DefaultTableModel) controleClienteTblClientes.getModel()).setRowCount(0);  
+	        }
+	        
+	        DefaultTableModel tabelaClientes = (DefaultTableModel) controleClienteTblClientes.getModel();
+	        
+	        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
+	        Cliente c = controleCliente.pesquisarClientePorCPF(controleClienteInputPesquisarCPF.getText()); 
+	        Integer codigo = c.getId(); 
+	        String nome = c.getNome();
+	        String email = c.getEmail(); 
+	        String cpf = c.getCpf();
+	        String cep = c.getEndereco().getCep(); 
+	        String endereco = c.getEndereco().getEndereco(); 
+	        String numero = c.getEndereco().getNumero();
+	        String bairro = c.getEndereco().getBairro();
+	        String cidade = c.getEndereco().getCidade();
+	        String uf = c.getEndereco().getUf();
+	
+	        // INSERIR DADOS EM UM NOVO ARRAY
+	        Object[] novoCliente = new Object[] {
+	            codigo,
+	            nome,
+	            email,
+	            cpf,
+	            cep,
+	            endereco,
+	            numero,
+	            bairro,
+	            cidade,
+	            uf
+	        };
+	
+	        // ADICIONANDO DADOS ENCONTRADOS NA TABELA
+	        tabelaClientes.addRow(novoCliente);
+    	}
     }                                                           
 
     private void controleClienteInputNumeroActionPerformed(java.awt.event.ActionEvent evt) {                                                           
@@ -627,6 +682,11 @@ public class TelaCliente extends javax.swing.JDialog {
     private void controleClienteInputCodActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO APAGAR ISSO
     }                                                       
+
+    private void controleClienteEstadosActionPerformed(java.awt.event.ActionEvent evt) {                                                       
+	        String estadoSelecionado = controleClienteEstados.getSelectedItem().toString();
+	        controleClienteInputUF.setText(estadoSelecionado);
+    }                                                      
 
     /**
      * @param args the command line arguments
@@ -684,6 +744,7 @@ public class TelaCliente extends javax.swing.JDialog {
     private javax.swing.JPanel controleClienteConsultar;
     private javax.swing.JPanel controleClienteDadosPessoais;
     private javax.swing.JPanel controleClienteEndereco;
+    private javax.swing.JComboBox<String> controleClienteEstados;
     private javax.swing.JTextField controleClienteInputBairro;
     private javax.swing.JFormattedTextField controleClienteInputCEP;
     private javax.swing.JFormattedTextField controleClienteInputCPF;
