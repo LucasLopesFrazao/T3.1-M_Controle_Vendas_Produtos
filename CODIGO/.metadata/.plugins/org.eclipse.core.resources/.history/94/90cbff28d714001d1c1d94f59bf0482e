@@ -324,7 +324,7 @@ public class TelaProduto extends javax.swing.JDialog {
     }                                                              
 
     private void controleProdutoBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        int linhaSelecionada = controleProdutoTblProdutos.getSelectedRow(); // PEGANDO LINHA SELECIONADA
+         int linhaSelecionada = controleProdutoTblProdutos.getSelectedRow(); // PEGANDO LINHA SELECIONADA
      	
      	if(linhaSelecionada == -1) { // SE NÃO TIVER NENHUMA LINHA SELECIONADA
      		JOptionPane.showMessageDialog(this, "Selecione uma linha.");
@@ -348,14 +348,9 @@ public class TelaProduto extends javax.swing.JDialog {
 
     private void controleProdutoBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                                          
         int linhaSelecionada = controleProdutoTblProdutos.getSelectedRow(); // PEGANDO LINHA SELECIONADA
-        DefaultTableModel tabelaProdutos = (DefaultTableModel) controleProdutoTblProdutos.getModel();
-    	
     	
     	if(linhaSelecionada == -1) { // SE NÃO TIVER NENHUMA LINHA SELECIONADA
     		JOptionPane.showMessageDialog(this, "Selecione uma linha.");
-    	}else if(tabelaProdutos.getRowCount() == 1 && linhaSelecionada == 0) {
-    		JOptionPane.showMessageDialog(this, "É necessário ao menos 1 produto no sistema.");    		
-    		controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
     	}else {
     		Integer id = (Integer) controleProdutoTblProdutos.getModel().getValueAt(linhaSelecionada, 0);
     		controleProduto.excluirProduto(id);    			
@@ -371,96 +366,59 @@ public class TelaProduto extends javax.swing.JDialog {
         // TODO APAGAR ISSO
     }                                                         
 
-    private void controleProdutoBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {  
-    	boolean precoValido = false;
-    	boolean estoqueValido = false;
+    private void controleProdutoBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                                         
         // PEGANDO INFORMAÇÕES DOS CAMPOS
     	Integer cod = Integer.parseInt(controleProdutoInputCod.getText());
     	String nome = controleProdutoInputNome.getText();
-    	Double preco = 0.0;
-    	Integer estoque = 1;
+    	Integer estoque = Integer.parseInt(controleProdutoInputEstoque.getText());
+    	Double preco = Double.parseDouble(controleProdutoInputPreco.getText());
     	
-    	try {
-    		String precoDigitado = controleProdutoInputPreco.getText().replace(",", ".");
-    		preco = Double.parseDouble(precoDigitado);
-    		precoValido = true;
-    	}catch(NumberFormatException e) {
-    	
-    	}
-    	
-    	try {
-    		estoque = Integer.parseInt(controleProdutoInputEstoque.getText());
-    		estoqueValido = true;
-    	}catch(NumberFormatException e) {
-    	
-    	}
-    	
+    	// SETANDO TEXTO PARA NADA.
+    	controleProdutoInputNome.setText("");
+    	controleProdutoInputEstoque.setText("");
+    	controleProdutoInputPreco.setText("");
+        
         // ADICIONANDO AO BANCO DE DADOS
-    	if(!precoValido) {
-    		JOptionPane.showMessageDialog(this, "Preço inválido!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		
-    	}else if(!estoqueValido) {
-    		JOptionPane.showMessageDialog(this, "Estoque inválido!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		
-    	}else if(controleProdutoInputNome.getText().equals("")) {
-    		JOptionPane.showMessageDialog(this, "Insira um nome!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		    		
-    	}else if(controleProduto.checarId(cod)) { // CHECANDO SE JÁ EXISTE
+    	if(controleProduto.checarId(cod)) { // CHECANDO SE JÁ EXISTE
     		controleProduto.editarProduto(new Produto(cod, preco, estoque, nome));
-    		// SETANDO TEXTO PARA NADA.
-        	controleProdutoInputNome.setText("");
-        	controleProdutoInputEstoque.setText("");
-        	controleProdutoInputPreco.setText("");
-        	
-        	// PROXIMO ID A SER CADASTRADO
-        	controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
-            
-            // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-        	controleProdutoTabbedPane.setSelectedIndex(1);
-        	controleProdutoBtnListarTodosActionPerformed(null);
     	}else {
     		controleProduto.adicionarProduto(new Produto(cod, preco, estoque, nome));
-    		// SETANDO TEXTO PARA NADA.
-        	controleProdutoInputNome.setText("");
-        	controleProdutoInputEstoque.setText("");
-        	controleProdutoInputPreco.setText("");
-    	
-        	// PROXIMO ID A SER CADASTRADO
-        	controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
-            
-            // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-        	controleProdutoTabbedPane.setSelectedIndex(1);
-        	controleProdutoBtnListarTodosActionPerformed(null);
     	}
+        
+        // PROXIMO ID A SER CADASTRADO
+    	controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
+        
+        // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+    	controleProdutoTabbedPane.setSelectedIndex(1);
+    	controleProdutoBtnListarTodosActionPerformed(null);
     }                                                        
 
     private void controleProdutoBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                            
-    	if(controleProdutoInputPesquisarNome.getText().equals("")) {
-    		JOptionPane.showMessageDialog(this, "Digite um nome válido!", "Erro", JOptionPane.ERROR_MESSAGE);
-    	}else {
-	    	// REMOVENDO DADOS DA TABELA
-	        while (controleProdutoTblProdutos.getModel().getRowCount() > 0) {  
-	               ((DefaultTableModel) controleProdutoTblProdutos.getModel()).setRowCount(0);  
-	        }
-	        
-	        DefaultTableModel tabelaProdutos = (DefaultTableModel) controleProdutoTblProdutos.getModel();
-	        
-	        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
-	        Produto p = controleProduto.pesquisarProduto(controleProdutoInputNome.getText());
-	        // PEGANDO DADOS
-	        Integer codigo = p.getId(); 
-	        String nome = p.getNome();
-	        String preco = String.format("%.2f", p.getPreco());
-	        Integer estoque = p.getQtdEstoque();
-	        
-	        // INSERIR DADOS NUM NOVO ARRAY
-	        Object[] novoProduto = new Object[] {
-	            codigo,
-	            nome,
-	            preco,
-	            estoque
-	        };
-	
-	        // NOVA LINHA TABELA
-	        tabelaProdutos.addRow(novoProduto);
-    	}
+        // REMOVENDO DADOS DA TABELA
+        while (controleProdutoTblProdutos.getModel().getRowCount() > 0) {  
+               ((DefaultTableModel) controleProdutoTblProdutos.getModel()).setRowCount(0);  
+        }
+        
+        DefaultTableModel tabelaProdutos = (DefaultTableModel) controleProdutoTblProdutos.getModel();
+        
+        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
+        Produto p = controleProduto.pesquisarProduto(controleProdutoInputNome.getText());
+        // PEGANDO DADOS
+        Integer codigo = p.getId(); 
+        String nome = p.getNome();
+        String preco = String.format("%.2f", p.getPreco());
+        Integer estoque = p.getQtdEstoque();
+        
+        // INSERIR DADOS NUM NOVO ARRAY
+        Object[] novoProduto = new Object[] {
+            codigo,
+            nome,
+            preco,
+            estoque
+        };
+
+        // NOVA LINHA TABELA
+        tabelaProdutos.addRow(novoProduto);
     }                                                           
 
     private void controleProdutoInputEstoqueActionPerformed(java.awt.event.ActionEvent evt) {                                                            

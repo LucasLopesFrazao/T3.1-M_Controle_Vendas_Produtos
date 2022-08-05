@@ -397,11 +397,9 @@ public class TelaProduto extends javax.swing.JDialog {
     	
         // ADICIONANDO AO BANCO DE DADOS
     	if(!precoValido) {
-    		JOptionPane.showMessageDialog(this, "Preço inválido!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		
+    		JOptionPane.showMessageDialog(this, "Preço inválido", "Erro", JOptionPane.ERROR_MESSAGE);    		    		
     	}else if(!estoqueValido) {
-    		JOptionPane.showMessageDialog(this, "Estoque inválido!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		
-    	}else if(controleProdutoInputNome.getText().equals("")) {
-    		JOptionPane.showMessageDialog(this, "Insira um nome!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		    		
+    		JOptionPane.showMessageDialog(this, "Estoque inválido", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		
     	}else if(controleProduto.checarId(cod)) { // CHECANDO SE JÁ EXISTE
     		controleProduto.editarProduto(new Produto(cod, preco, estoque, nome));
     		// SETANDO TEXTO PARA NADA.
@@ -432,35 +430,31 @@ public class TelaProduto extends javax.swing.JDialog {
     }                                                        
 
     private void controleProdutoBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                            
-    	if(controleProdutoInputPesquisarNome.getText().equals("")) {
-    		JOptionPane.showMessageDialog(this, "Digite um nome válido!", "Erro", JOptionPane.ERROR_MESSAGE);
-    	}else {
-	    	// REMOVENDO DADOS DA TABELA
-	        while (controleProdutoTblProdutos.getModel().getRowCount() > 0) {  
-	               ((DefaultTableModel) controleProdutoTblProdutos.getModel()).setRowCount(0);  
-	        }
-	        
-	        DefaultTableModel tabelaProdutos = (DefaultTableModel) controleProdutoTblProdutos.getModel();
-	        
-	        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
-	        Produto p = controleProduto.pesquisarProduto(controleProdutoInputNome.getText());
-	        // PEGANDO DADOS
-	        Integer codigo = p.getId(); 
-	        String nome = p.getNome();
-	        String preco = String.format("%.2f", p.getPreco());
-	        Integer estoque = p.getQtdEstoque();
-	        
-	        // INSERIR DADOS NUM NOVO ARRAY
-	        Object[] novoProduto = new Object[] {
-	            codigo,
-	            nome,
-	            preco,
-	            estoque
-	        };
-	
-	        // NOVA LINHA TABELA
-	        tabelaProdutos.addRow(novoProduto);
-    	}
+        // REMOVENDO DADOS DA TABELA
+        while (controleProdutoTblProdutos.getModel().getRowCount() > 0) {  
+               ((DefaultTableModel) controleProdutoTblProdutos.getModel()).setRowCount(0);  
+        }
+        
+        DefaultTableModel tabelaProdutos = (DefaultTableModel) controleProdutoTblProdutos.getModel();
+        
+        // PESQUISANDO NO BANCO DE DADOS E INSERINDO EM VARIAVEIS
+        Produto p = controleProduto.pesquisarProduto(controleProdutoInputNome.getText());
+        // PEGANDO DADOS
+        Integer codigo = p.getId(); 
+        String nome = p.getNome();
+        String preco = String.format("%.2f", p.getPreco());
+        Integer estoque = p.getQtdEstoque();
+        
+        // INSERIR DADOS NUM NOVO ARRAY
+        Object[] novoProduto = new Object[] {
+            codigo,
+            nome,
+            preco,
+            estoque
+        };
+
+        // NOVA LINHA TABELA
+        tabelaProdutos.addRow(novoProduto);
     }                                                           
 
     private void controleProdutoInputEstoqueActionPerformed(java.awt.event.ActionEvent evt) {                                                            
