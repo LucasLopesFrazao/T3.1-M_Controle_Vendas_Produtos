@@ -1,0 +1,110 @@
+package controle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import exceptions.EstoqueException;
+import exceptions.IdProdutoException;
+import modelo.Produto;
+
+public class ControleProduto {
+	
+	//ATRIBUTOS
+	List<Produto> produtos = new ArrayList<>();
+	
+	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
+	public ControleProduto() {
+		produtos.add(new Produto(1, 1481.00, 10, "AMD Ryzen 5"));
+		produtos.add(new Produto(2, 258.81, 15, "Memoria RAM DDR4"));
+		produtos.add(new Produto(3, 587.06, 7, "Placa Mãe AM4"));
+		produtos.add(new Produto(4, 234.12, 20, "Gabinete"));
+		produtos.add(new Produto(5, 351.76, 30, "Fonte 500W"));
+	}
+	
+	//METODOS
+	public Integer ultimoCodigoCadastrado() {
+		return produtos.get((produtos.size() - 1)).getId();
+	}
+	
+	public List<Produto> obterTodosProdutos(){
+		return produtos;
+	}
+	
+	public boolean checarId(Integer id) {
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void editarProduto(Produto produto) {
+		for(Produto p: produtos) {
+			if(p.getId() == produto.getId()) {
+				p.setId(produto.getId());
+				p.setNome(produto.getNome());
+				p.setPreco(produto.getPreco());
+				p.setQtdEstoque(produto.getQtdEstoque());
+			}
+		}
+	}
+	
+	public void adicionarProduto(Produto produto) {
+		produtos.add(produto);
+	}
+	
+	public Produto pesquisarProduto(String nome) {
+		for(Produto p: produtos) {
+			if(p.getNome().toUpperCase().contains(nome.toUpperCase())) {
+				return p;
+			}
+		}
+		return new Produto();
+	}
+	
+	public Produto pesquisarProdutoId(Integer id) {
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
+		return new Produto();
+	}
+	
+	public void excluirProduto(Integer id) {
+		int loop = 0;
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				produtos.remove(loop);
+				break;
+			}
+			loop += 1;
+		}
+	}
+	
+	public void diminuirEstoque(Integer id, Integer qtd) throws EstoqueException {
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				if((p.getQtdEstoque() - qtd) < 0) {
+					throw new EstoqueException("Quantidade em estoque insuficiente");
+				}else {
+					p.setQtdEstoque(p.getQtdEstoque() - qtd);					
+				}
+			}
+		}
+	}
+	
+	public void idExistente(Integer id) throws IdProdutoException {
+		boolean existe = false;
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				existe = true;
+			}
+		}
+		if(existe == false) {
+			System.out.println("FALSO");
+			throw new IdProdutoException("Id não existe!");			
+		}
+	}
+}

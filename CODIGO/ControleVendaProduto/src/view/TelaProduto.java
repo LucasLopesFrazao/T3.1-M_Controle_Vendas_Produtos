@@ -402,33 +402,34 @@ public class TelaProduto extends javax.swing.JDialog {
     		JOptionPane.showMessageDialog(this, "Estoque inválido!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		
     	}else if(controleProdutoInputNome.getText().equals("")) {
     		JOptionPane.showMessageDialog(this, "Insira um nome!", "Erro", JOptionPane.ERROR_MESSAGE);    		    		    		    		
-    	}else if(controleProduto.checarId(cod)) { // CHECANDO SE JÁ EXISTE
-    		controleProduto.editarProduto(new Produto(cod, preco, estoque, nome));
-    		// SETANDO TEXTO PARA NADA.
-        	controleProdutoInputNome.setText("");
-        	controleProdutoInputEstoque.setText("");
-        	controleProdutoInputPreco.setText("");
-        	
-        	// PROXIMO ID A SER CADASTRADO
-        	controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
-            
-            // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-        	controleProdutoTabbedPane.setSelectedIndex(1);
-        	controleProdutoBtnListarTodosActionPerformed(null);
-    	}else {
-    		controleProduto.adicionarProduto(new Produto(cod, preco, estoque, nome));
-    		// SETANDO TEXTO PARA NADA.
-        	controleProdutoInputNome.setText("");
-        	controleProdutoInputEstoque.setText("");
-        	controleProdutoInputPreco.setText("");
-    	
-        	// PROXIMO ID A SER CADASTRADO
-        	controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
-            
-            // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
-        	controleProdutoTabbedPane.setSelectedIndex(1);
-        	controleProdutoBtnListarTodosActionPerformed(null);
-    	}
+    	} else
+			if(controleProduto.checarId(cod)) { // CHECANDO SE JÁ EXISTE
+				controleProduto.editarProduto(new Produto(cod, preco, estoque, nome));
+				// SETANDO TEXTO PARA NADA.
+				controleProdutoInputNome.setText("");
+				controleProdutoInputEstoque.setText("");
+				controleProdutoInputPreco.setText("");
+				
+				// PROXIMO ID A SER CADASTRADO
+				controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
+			    
+			    // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+				controleProdutoTabbedPane.setSelectedIndex(1);
+				controleProdutoBtnListarTodosActionPerformed(null);
+			}else {
+				controleProduto.adicionarProduto(new Produto(cod, preco, estoque, nome));
+				// SETANDO TEXTO PARA NADA.
+				controleProdutoInputNome.setText("");
+				controleProdutoInputEstoque.setText("");
+				controleProdutoInputPreco.setText("");
+			
+				// PROXIMO ID A SER CADASTRADO
+				controleProdutoInputCod.setText(String.valueOf(controleProduto.ultimoCodigoCadastrado()+1));
+			    
+			    // ALTERANDO TABBEDPANE E ATUALIZANDO LISTA
+				controleProdutoTabbedPane.setSelectedIndex(1);
+				controleProdutoBtnListarTodosActionPerformed(null);
+			} 
     }                                                        
 
     private void controleProdutoBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                            

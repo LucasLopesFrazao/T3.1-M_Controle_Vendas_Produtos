@@ -3,6 +3,8 @@ package controle;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.EstoqueException;
+import exceptions.IdProdutoException;
 import modelo.Produto;
 
 public class ControleProduto {
@@ -31,6 +33,7 @@ public class ControleProduto {
 	public boolean checarId(Integer id) {
 		for(Produto p: produtos) {
 			if(p.getId() == id) {
+				System.out.println("true");
 				return true;
 			}
 		}
@@ -79,5 +82,34 @@ public class ControleProduto {
 			}
 			loop += 1;
 		}
+	}
+	
+	public void diminuirEstoque(Integer id, Integer qtd) throws EstoqueException {
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				if((p.getQtdEstoque() - qtd) < 0) {
+					throw new EstoqueException("Quantidade em estoque insuficiente");
+				}else {
+					p.setQtdEstoque(p.getQtdEstoque() - qtd);					
+				}
+			}
+		}
+	}
+	
+	public void aumentarEstoque(Integer id, Integer qtd){
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				p.setQtdEstoque(p.getQtdEstoque() + qtd);					
+			}
+		}
+	}
+	
+	public boolean checarIdNoSistema(Integer id) throws IdProdutoException {
+		for(Produto p: produtos) {
+			if(p.getId() == id) {
+				return true;
+			}
+		}
+		throw new IdProdutoException("Código inválido!");
 	}
 }

@@ -28,6 +28,7 @@ public class Vendedor extends PessoaAbstrata{
 
 	@Override
 	public String toString() {
-		return "Vendedor [departamento=" + departamento + "]";
+		return "Vendedor [departamento=" + departamento + ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getEmail()=" + getEmail() + "]";
 	}
 }

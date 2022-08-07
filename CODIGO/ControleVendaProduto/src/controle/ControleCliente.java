@@ -15,7 +15,7 @@ public class ControleCliente {
 	
 	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
 	public ControleCliente() {
-		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "353.559.630-05", "41306-065",
+		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "043.547.991-11", "41306-065",
 				"Salvador", "Vila das Margaridas", "229", "Nova Brasília de Valéria", "BA"));
 		
 		clientes.add(new Cliente(2, "Isadora Elaine", "isadora-elaine@foar.unesp.br", "619.021.645-55", "79790-970",

@@ -8,13 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import application.Main;
-import controle.ControleVenda;
 import controle.ControleCliente;
 import controle.ControleProduto;
+import controle.ControleVenda;
 import controle.ControleVendedor;
+import exceptions.CampoEmBrancoException;
+import exceptions.CarrinhoException;
+import exceptions.EstoqueException;
+import exceptions.IdProdutoException;
 import modelo.Cliente;
 import modelo.Pedido;
 import modelo.Produto;
@@ -449,37 +454,65 @@ public class TelaRealizarVenda extends javax.swing.JDialog {
         // TODO add your handling code here:
     }                                                                 
 
-    private void RealizarVendaBtnPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                                                 
-        Produto p = controleProduto.pesquisarProdutoId(Integer.parseInt(RealizarVendaInputCodProduto.getText()));
-        RealizarVendaInputNomeProduto.setText(p.getNome());
-        RealizarVendaInputPrecoProduto.setText(String.format("%.2f", p.getPreco()));
+    private void RealizarVendaBtnPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {     
+    	try {
+    		Produto p = controleProduto.pesquisarProdutoId(Integer.parseInt(RealizarVendaInputCodProduto.getText()));
+    		controleProduto.checarIdNoSistema(Integer.parseInt(RealizarVendaInputCodProduto.getText()));
+    		RealizarVendaInputNomeProduto.setText(p.getNome());
+    		RealizarVendaInputPrecoProduto.setText(String.format("%.2f", p.getPreco()));
+    	}catch(NumberFormatException | IdProdutoException e) {
+    		JOptionPane.showMessageDialog(this, "Código inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+    	}
     }                                                                
 
-    private void RealizarVendaBtnCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {                                                              
+    private void RealizarVendaBtnCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {
+    	int totalRows = RealizarVendaTblCarrinho.getRowCount();
+    	for(int i = 0; i < totalRows; i++) {
+    		Integer cod = (Integer) RealizarVendaTblCarrinho.getModel().getValueAt(i, 0);
+    		Integer quantidade = (Integer) RealizarVendaTblCarrinho.getModel().getValueAt(i, 2);
+    		controleProduto.aumentarEstoque(cod, quantidade);
+    	}
         dispose();
     }                                                             
 
     private void RealizarVendaBtnRealizarVendaActionPerformed(java.awt.event.ActionEvent evt) {                                                              
-        int totalRows = RealizarVendaTblCarrinho.getRowCount();
-    	List<Pedido> pedidos = new ArrayList<>();
-    	for(int i = 0; i < totalRows; i++) {
-    		Integer cod = (Integer) RealizarVendaTblCarrinho.getModel().getValueAt(i, 0);
-    		String nome = (String) RealizarVendaTblCarrinho.getModel().getValueAt(i, 1);
-    		Integer quantidade = (Integer) RealizarVendaTblCarrinho.getModel().getValueAt(i, 2);
-    		Double preco = Double.parseDouble(String.valueOf(RealizarVendaTblCarrinho.getModel().getValueAt(i, 3)).replace(",", "."));
-    		Double precoTotal = Double.parseDouble(String.valueOf(RealizarVendaTblCarrinho.getModel().getValueAt(i, 4)).replace(",", "."));
-    		
-    		Pedido p = new Pedido(new Produto(cod, preco, nome), quantidade, precoTotal);
-    		pedidos.add(p);
-    	}
-    	controleVenda.adicionarVenda(new Venda(
-    			controleVenda.ultimoCodigoCadastrado() + 1, 
-    			new Date(), 
-    			controleVenda.totalVenda(pedidos), 
-    			controleVendedor.pesquisarPorNome(RealizarVendaInputNomeVendedor.getText()), 
-    			controleCliente.pesquisarClientePorCPF(RealizarVendaInputCPF.getText()), 
-    			pedidos));
-    	dispose();
+        try {
+        	int totalRows = RealizarVendaTblCarrinho.getRowCount();
+        	if(totalRows == 0) {
+        		throw new CarrinhoException("Carrinho vázio!");
+        	}
+        	List<Pedido> pedidos = new ArrayList<>();
+        	for(int i = 0; i < totalRows; i++) {
+        		Integer cod = (Integer) RealizarVendaTblCarrinho.getModel().getValueAt(i, 0);
+        		String nome = (String) RealizarVendaTblCarrinho.getModel().getValueAt(i, 1);
+        		Integer quantidade = (Integer) RealizarVendaTblCarrinho.getModel().getValueAt(i, 2);
+        		Double preco = Double.parseDouble(String.valueOf(RealizarVendaTblCarrinho.getModel().getValueAt(i, 3)).replace(",", "."));
+        		Double precoTotal = Double.parseDouble(String.valueOf(RealizarVendaTblCarrinho.getModel().getValueAt(i, 4)).replace(",", "."));
+        		
+        		Pedido p = new Pedido(new Produto(cod, preco, nome), quantidade, precoTotal);
+        		pedidos.add(p);
+        	}
+        	
+        	Cliente cliente = controleCliente.pesquisarClientePorCPF(RealizarVendaInputCPF.getText());
+        	Vendedor vendedor = controleVendedor.pesquisarPorNome(RealizarVendaInputNomeVendedor.getText());
+        	if(cliente.getCpf() == null || vendedor.getNome() == null) {
+        		throw new CampoEmBrancoException("");
+        	}
+        	
+        	controleVenda.adicionarVenda(new Venda(
+        			controleVenda.ultimoCodigoCadastrado() + 1, 
+        			new Date(), 
+        			controleVenda.totalVenda(pedidos), 
+        			vendedor, 
+        			cliente, 
+        			pedidos));
+        	JOptionPane.showMessageDialog(this, "Venda realizada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
+        } catch(CampoEmBrancoException e) {
+        	JOptionPane.showMessageDialog(this, "Campos inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (CarrinhoException e) {
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
     }                                                             
 
     private void RealizarVendaInputNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {                                                              
@@ -506,34 +539,49 @@ public class TelaRealizarVenda extends javax.swing.JDialog {
         // TODO add your handling code here:
     }                                                            
 
-    private void RealizarVendaBtnAdicionarCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {                                                                  
-        DefaultTableModel tabelaCarrinho = (DefaultTableModel) RealizarVendaTblCarrinho.getModel();
-    	Integer cod = Integer.parseInt(RealizarVendaInputCodProduto.getText());
-    	String nome = RealizarVendaInputNomeProduto.getText();
-    	Integer qtd = Integer.parseInt(RealizarVendaInputQtdProduto.getText());
-    	Double preco = Double.parseDouble(String.valueOf(RealizarVendaInputPrecoProduto.getText()).replace(",", "."));
-    	Double total = qtd * preco;
-    	String precoReal = String.format("%.2f", Double.parseDouble(String.valueOf(RealizarVendaInputPrecoProduto.getText()).replace(",", ".")));
-    	String totalFormatado = String.format("%.2f", total);
-    	
-    	Object[] novoItem = new Object[] {
-    			cod,
-    			nome,
-    			qtd,
-    			precoReal,
-    			totalFormatado
-            };
-    	
-    	// NOVA LINHA TABELA
-    	tabelaCarrinho.addRow(novoItem);
-    	Double precoAnterior = Double.parseDouble(RealizarVendaInputTotalVendaInput.getText().replace(",", "."));
-    	Double novoPreco = precoAnterior + total;
-    	RealizarVendaInputTotalVendaInput.setText(String.format("%.2f", novoPreco));
-    	
-    	RealizarVendaInputCodProduto.setText("");
-    	RealizarVendaInputNomeProduto.setText("");
-    	RealizarVendaInputPrecoProduto.setText("");
-    	RealizarVendaInputQtdProduto.setText("");
+    private void RealizarVendaBtnAdicionarCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {
+    	try {
+    		//MODELO DA TABELA
+            DefaultTableModel tabelaCarrinho = (DefaultTableModel) RealizarVendaTblCarrinho.getModel();
+            
+            //PEGANDO INFORMAÇÕES
+        	Integer cod = Integer.parseInt(RealizarVendaInputCodProduto.getText());        	
+        	String nome = RealizarVendaInputNomeProduto.getText();
+        	Integer qtd = Integer.parseInt(RealizarVendaInputQtdProduto.getText());
+        	if(qtd == 0) {
+        		throw new EstoqueException("Quantidade não pode ser 0!");
+        	}
+        	Double preco = Double.parseDouble(String.valueOf(RealizarVendaInputPrecoProduto.getText()).replace(",", "."));
+        	Double total = qtd * preco;
+        	
+        	String precoReal = String.format("%.2f", Double.parseDouble(String.valueOf(RealizarVendaInputPrecoProduto.getText()).replace(",", ".")));
+        	String totalFormatado = String.format("%.2f", total);
+        	
+        	controleProduto.diminuirEstoque(cod, qtd);
+        	
+        	Object[] novoItem = new Object[] {
+        			cod,
+        			nome,
+        			qtd,
+        			precoReal,
+        			totalFormatado
+                };
+        	
+        	// NOVA LINHA TABELA
+        	tabelaCarrinho.addRow(novoItem);
+        	Double precoAnterior = Double.parseDouble(RealizarVendaInputTotalVendaInput.getText().replace(",", "."));
+        	Double novoPreco = precoAnterior + total;
+        	RealizarVendaInputTotalVendaInput.setText(String.format("%.2f", novoPreco));
+        	
+        	RealizarVendaInputCodProduto.setText("");
+        	RealizarVendaInputNomeProduto.setText("");
+        	RealizarVendaInputPrecoProduto.setText("");
+        	RealizarVendaInputQtdProduto.setText("");
+    	}catch(NumberFormatException e) {
+    		JOptionPane.showMessageDialog(this, "Campos inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+    	} catch (EstoqueException e) {
+    		JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
     }                                                                 
 
     /**

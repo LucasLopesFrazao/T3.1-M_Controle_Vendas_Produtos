@@ -35,6 +35,9 @@ public class ControleVendedor {
 	}
 	
 	public Vendedor pesquisarPorNome(String nome) {
+		if(nome.equals("")) {
+			return new Vendedor();			
+		}
 		for(Vendedor v: vendedores) {
 			if(v.getNome().toUpperCase().contains(nome.toUpperCase())) {
 				return v;
