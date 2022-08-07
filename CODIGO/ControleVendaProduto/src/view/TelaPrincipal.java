@@ -38,6 +38,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         principalMenuVendas = new javax.swing.JMenu();
         menuVendaRealizarVendas = new javax.swing.JMenuItem();
         menuVendaConsultarVendas = new javax.swing.JMenuItem();
+        menuVendaConsultaId = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de controle de Vendas");
@@ -107,13 +108,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         principalMenuVendas.add(menuVendaRealizarVendas);
 
         menuVendaConsultarVendas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuVendaConsultarVendas.setText("Consultar venda");
+        menuVendaConsultarVendas.setText("Consultar Vendas por data");
         menuVendaConsultarVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuVendaConsultarVendasActionPerformed(evt);
             }
         });
         principalMenuVendas.add(menuVendaConsultarVendas);
+
+        menuVendaConsultaId.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuVendaConsultaId.setText("Consultar Venda por id");
+        menuVendaConsultaId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVendaConsultaIdActionPerformed(evt);
+            }
+        });
+        principalMenuVendas.add(menuVendaConsultaId);
 
         principalMenu.add(principalMenuVendas);
 
@@ -153,6 +163,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }                                                        
 
     private void menuControleProdutosActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        // TODO add your handling code here:
         TelaProduto controleProduto = new TelaProduto(this, true);
         controleProduto.setVisible(true);
     }                                                    
@@ -168,6 +179,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaConsultarVenda consultarVenda = new TelaConsultarVenda(this, true);
         consultarVenda.setVisible(true);
     }                                                        
+
+    private void menuVendaConsultaIdActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    	TelaVizualizarVendaUnica consultarVendaUnica = new TelaVizualizarVendaUnica(this, true);
+    	consultarVendaUnica.setVisible(true);
+    }                                                   
 
     /**
      * @param args the command line arguments
@@ -209,6 +225,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuControleClientes;
     private javax.swing.JMenuItem menuControleFuncionarios;
     private javax.swing.JMenuItem menuControleProdutos;
+    private javax.swing.JMenuItem menuVendaConsultaId;
     private javax.swing.JMenuItem menuVendaConsultarVendas;
     private javax.swing.JMenuItem menuVendaRealizarVendas;
     private javax.swing.JLabel principalFundoImagem;

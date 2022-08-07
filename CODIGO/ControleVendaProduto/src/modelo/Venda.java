@@ -73,6 +73,10 @@ public class Venda {
 		carrinho.add(pedido);
 	}
 
+	public List<Pedido> getCarrinho() {
+		return carrinho;
+	}
+
 	@Override
 	public String toString() {
 		return "Venda [id=" + id + ", dataVenda=" + dataVenda + ", valorVenda=" + valorVenda + ", vendedor=" + vendedor

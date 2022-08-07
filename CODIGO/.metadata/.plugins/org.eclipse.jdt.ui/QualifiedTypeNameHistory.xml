@@ -6,7 +6,6 @@
     <fullyQualifiedTypeName name="modelo.Endereco"/>
     <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
     <fullyQualifiedTypeName name="java.lang.Object"/>
-    <fullyQualifiedTypeName name="modelo.Cliente"/>
     <fullyQualifiedTypeName name="modelo.Vendedor"/>
     <fullyQualifiedTypeName name="view.ControleProduto"/>
     <fullyQualifiedTypeName name="java.lang.Double"/>
@@ -29,8 +28,15 @@
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
-    <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="exceptions.IdProdutoException"/>
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="exceptions.EstoqueException"/>
+    <fullyQualifiedTypeName name="modelo.Cliente"/>
+    <fullyQualifiedTypeName name="exceptions.CampoEmBrancoException"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="exceptions.CarrinhoException"/>
+    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="java.util.Calendar"/>
+    <fullyQualifiedTypeName name="view.TelaVizualizarVendaUnica"/>
 </qualifiedTypeNameHistroy>

@@ -6,6 +6,7 @@ package view;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,15 @@ public class TelaConsultarVenda extends javax.swing.JDialog {
     public TelaConsultarVenda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        ConsultarVendaDataFinal.setText(sdf.format(c.getTime()));
+        
+        c.add(Calendar.YEAR, -3);
+        Date dataUmAnoAtras = c.getTime();
+        ConsultarVendaDataInicial.setText(sdf.format(dataUmAnoAtras));
+        ConsultarVendaBtnPesquisarActionPerformed(null);
     }
 
     /**
@@ -161,52 +171,50 @@ public class TelaConsultarVenda extends javax.swing.JDialog {
         pack();
     }// </editor-fold>                        
 
-    private void ConsultarVendaBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                           
-    	String dataInicial = ConsultarVendaDataInicial.getText();
-        String dataFinal = ConsultarVendaDataFinal.getText();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataInicialFormatada = null;
-        Date dataFinalFormatada = null;
-        
-        try {
-        	dataInicialFormatada = formato.parse(dataInicial);
-        	dataFinalFormatada = formato.parse(dataFinal);
+    private void ConsultarVendaBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {                                                            
+        try {        	
+        	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        	Date dataInicial = formato.parse(ConsultarVendaDataInicial.getText());
+        	Date dataFinal = formato.parse(ConsultarVendaDataFinal.getText());
+        	Calendar cal = Calendar.getInstance();
+        	cal.setTime(dataFinal);
+        	cal.add(Calendar.DATE, +1);
+        	dataFinal = cal.getTime();
+        	
+        	List<Venda> vendasConsultadas = controleVenda.consultarVendaComData(dataInicial, dataFinal);		
+    		DefaultTableModel tabelaVendas = (DefaultTableModel) ConsultarVendaTblVendas.getModel();
+    		// REMOVENDO DADOS DA TABELA
+            while (ConsultarVendaTblVendas.getModel().getRowCount() > 0) {  
+                   ((DefaultTableModel) ConsultarVendaTblVendas.getModel()).setRowCount(0);  
+            }
+            
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+            
+            for(Venda v: vendasConsultadas) {
+                // PEGANDO DADOS
+                Integer codigo = v.getId(); 
+                String data = out.format(v.getDataVenda());
+                String nomeCliente = v.getCliente().getNome();
+                String funcionario = v.getVendedor().getNome();
+                String preco = String.format("%.2f", v.getValorVenda());
+
+                // INSERIR DADOS NUM NOVO ARRAY
+                Object[] novaVenda = new Object[] {
+                    codigo,
+                    data,
+                    nomeCliente,
+                    funcionario,
+                    preco
+                };
+
+                // NOVA LINHA TABELA
+                tabelaVendas.addRow(novaVenda);
+        	}
         } catch (ParseException e1) {
-        	// TODO Auto-generated catch block
-        	e1.printStackTrace();
+
         }
-		
-		List<Venda> vendasConsultadas = controleVenda.consultarVendaComData(dataInicialFormatada, dataFinalFormatada);		
-		DefaultTableModel tabelaVendas = (DefaultTableModel) ConsultarVendaTblVendas.getModel();
-		// REMOVENDO DADOS DA TABELA
-        while (ConsultarVendaTblVendas.getModel().getRowCount() > 0) {  
-               ((DefaultTableModel) ConsultarVendaTblVendas.getModel()).setRowCount(0);  
-        }
-        
-        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-        
-        for(Venda v: vendasConsultadas) {
-            // PEGANDO DADOS
-            Integer codigo = v.getId(); 
-            String data = out.format(v.getDataVenda());
-            String nomeCliente = v.getCliente().getNome();
-            String funcionario = v.getVendedor().getNome();
-            String preco = String.format("%.2f", v.getValorVenda());
-
-            // INSERIR DADOS NUM NOVO ARRAY
-            Object[] novaVenda = new Object[] {
-                codigo,
-                data,
-                nomeCliente,
-                funcionario,
-                preco
-            };
-
-            // NOVA LINHA TABELA
-            tabelaVendas.addRow(novaVenda);
-    	}
-    }                                                          
-
+    }  
+    
     /**
      * @param args the command line arguments
      */

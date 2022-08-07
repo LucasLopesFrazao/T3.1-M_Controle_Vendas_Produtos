@@ -25,8 +25,8 @@ public class ControleVenda {
 		List<Pedido> pedidosVenda1 = new ArrayList<>();
 		pedidosVenda1.add(new Pedido(controleProduto.pesquisarProdutoId(1), 2, controleProduto.pesquisarProdutoId(1).getPreco()*2));
 		try {
-			vendas.add(new Venda(1, out.parse("01/01/2020"), 8886.00, controleVendedor.pesquisarPorNome("Rafael"), 
-					controleCliente.pesquisarClientePorCPF("353.559.630-05"), pedidosVenda1));
+			vendas.add(new Venda(1, out.parse("01/01/2020"), 8886.00, controleVendedor.pesquisarPorNome("Raf"), 
+					controleCliente.pesquisarClientePorCPF("043.547.991-11"), pedidosVenda1));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,5 +58,14 @@ public class ControleVenda {
 			}
 		}
 		return vendasConsultadas;
+	}
+	
+	public Venda consultarVenda(Integer id) {
+		for(Venda v:vendas) {
+			if(v.getId()==id) {
+				return v;
+			}
+		}
+		return null;
 	}
 }
