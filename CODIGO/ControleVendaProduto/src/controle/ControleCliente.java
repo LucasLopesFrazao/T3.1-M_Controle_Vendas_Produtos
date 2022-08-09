@@ -9,13 +9,12 @@ import java.util.regex.Pattern;
 import modelo.Cliente;
 
 public class ControleCliente {
-	
 	//ATRIBUTOS
 	private List<Cliente> clientes = new ArrayList<Cliente>();
 	
 	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
 	public ControleCliente() {
-		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "043.547.991-11", "41306-065",
+		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "264.162.494-05", "41306-065",
 				"Salvador", "Vila das Margaridas", "229", "Nova Brasília de Valéria", "BA"));
 		
 		clientes.add(new Cliente(2, "Isadora Elaine", "isadora-elaine@foar.unesp.br", "619.021.645-55", "79790-970",
@@ -29,6 +28,21 @@ public class ControleCliente {
 		
 		clientes.add(new Cliente(5, "Bruna Francisca Rebeca Assis", "bruna.francisca@agencia10.com.br", "007.938.968-60", "68905-170",
 				"Macapá", "Rua Santa Maria", "814", "Cidade Nova", "AP"));
+		
+		clientes.add(new Cliente(6, "Eliane Lara Sales", "eliane-sales80@arbitral.com", "775.729.750-89", "78551-308",
+				"Sinop", "CondomíniO Camping Club", "516", "Rua da Corvina", "MT"));
+		
+		clientes.add(new Cliente(7, "Bruno Roberto Freitas", "bruno_freitas@trilhavitoria.com.br", "591.590.805-58", "27110-110",
+				"Barra do Piraí", "Rua Maria Luiza Rodrigues", "3559", "Ponte Preta", "RJ"));
+		
+		clientes.add(new Cliente(8, "Thomas Lorenzo Galvão", "thomas.lorenzo.galvao@unicamp.br", "983.467.257-87", "77416-055",
+				"Gurupi", "Rua 10", "117", "Jardim Guanabara", "TO"));
+		
+		clientes.add(new Cliente(9, "Alícia Gabriela Fogaça", "alicia.marli.fogaca@51hotmail.com", "346.403.030-09", "76906-627",
+				"Ji-Paraná", "Avenida José Carlos Martins Vilela", "182", "Colina Park I", "RO"));
+		
+		clientes.add(new Cliente(10, "Analu Isadora Vanessa Campos", "analu_campos@cavalinho.srv.br", "677.174.865-04", "79002-212",
+				"Campo Grande", "Rua Maracaju", "555", "Centro", "MS"));
 	}
 	
 	//METODOS

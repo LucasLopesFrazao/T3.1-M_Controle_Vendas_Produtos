@@ -1,0 +1,184 @@
+package view;
+
+@SuppressWarnings("serial")
+public class TelaPrincipal extends javax.swing.JFrame {
+    public TelaPrincipal() {
+        initComponents();
+    }
+                       
+    private void initComponents() {
+
+        principalFundoImagem = new javax.swing.JLabel();
+        principalMenu = new javax.swing.JMenuBar();
+        principalMenuClientes = new javax.swing.JMenu();
+        menuControleClientes = new javax.swing.JMenuItem();
+        principalMenuFuncionarios = new javax.swing.JMenu();
+        menuControleFuncionarios = new javax.swing.JMenuItem();
+        principalMenuProdutos = new javax.swing.JMenu();
+        menuControleProdutos = new javax.swing.JMenuItem();
+        principalMenuVendas = new javax.swing.JMenu();
+        menuVendaRealizarVendas = new javax.swing.JMenuItem();
+        menuVendaConsultarVendas = new javax.swing.JMenuItem();
+        menuVendaConsultaId = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de controle de Vendas");
+        setLocation(new java.awt.Point(300, 150));
+        setResizable(false);
+
+        principalFundoImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/fundo2.png"))); // NOI18N
+
+        principalMenuClientes.setText("Clientes");
+
+        menuControleClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuControleClientes.setText("Controle de clientes");
+        menuControleClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuControleClientesActionPerformed(evt);
+            }
+        });
+        principalMenuClientes.add(menuControleClientes);
+
+        principalMenu.add(principalMenuClientes);
+
+        principalMenuFuncionarios.setText("Funcionarios");
+
+        menuControleFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuControleFuncionarios.setText("Controle de funcionarios");
+        menuControleFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuControleFuncionariosActionPerformed(evt);
+            }
+        });
+        principalMenuFuncionarios.add(menuControleFuncionarios);
+
+        principalMenu.add(principalMenuFuncionarios);
+
+        principalMenuProdutos.setText("Produtos");
+
+        menuControleProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuControleProdutos.setText("Controle de produtos");
+        menuControleProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuControleProdutosActionPerformed(evt);
+            }
+        });
+        principalMenuProdutos.add(menuControleProdutos);
+
+        principalMenu.add(principalMenuProdutos);
+
+        principalMenuVendas.setText("Vendas");
+
+        menuVendaRealizarVendas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuVendaRealizarVendas.setText("Realizar venda");
+        menuVendaRealizarVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVendaRealizarVendasActionPerformed(evt);
+            }
+        });
+        principalMenuVendas.add(menuVendaRealizarVendas);
+
+        menuVendaConsultarVendas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuVendaConsultarVendas.setText("Consultar Vendas por data");
+        menuVendaConsultarVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVendaConsultarVendasActionPerformed(evt);
+            }
+        });
+        principalMenuVendas.add(menuVendaConsultarVendas);
+
+        menuVendaConsultaId.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuVendaConsultaId.setText("Consultar Venda por id");
+        menuVendaConsultaId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVendaConsultaIdActionPerformed(evt);
+            }
+        });
+        principalMenuVendas.add(menuVendaConsultaId);
+
+        principalMenu.add(principalMenuVendas);
+
+        setJMenuBar(principalMenu);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(principalFundoImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 543, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(principalFundoImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 286, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void menuControleClientesActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        TelaCliente controleCliente = new TelaCliente(this, true);
+        controleCliente.setVisible(true);
+    }                                                                                                       
+
+    private void menuControleFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {                                                         
+        TelaVendedor controleFuncionario = new TelaVendedor(this, true);
+        controleFuncionario.setVisible(true);
+    }                                                        
+
+    private void menuControleProdutosActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        TelaProduto controleProduto = new TelaProduto(this, true);
+        controleProduto.setVisible(true);
+    }                                                    
+
+    private void menuVendaRealizarVendasActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+        TelaRealizarVenda realizarVenda = new TelaRealizarVenda(this, true);
+        realizarVenda.setVisible(true);
+    }                                                       
+
+    private void menuVendaConsultarVendasActionPerformed(java.awt.event.ActionEvent evt) {                                                         
+        TelaConsultarVenda consultarVenda = new TelaConsultarVenda(this, true);
+        consultarVenda.setVisible(true);
+    }                                                        
+
+    private void menuVendaConsultaIdActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    	TelaVizualizarVendaUnica consultarVendaUnica = new TelaVizualizarVendaUnica(this, true);
+    	consultarVendaUnica.setVisible(true);
+    }                                                   
+
+//    public static void main(String args[]) {
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Windows".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TelaPrincipal().setVisible(true);
+//            }
+//        });
+//    }
+                   
+    private javax.swing.JMenuItem menuControleClientes;
+    private javax.swing.JMenuItem menuControleFuncionarios;
+    private javax.swing.JMenuItem menuControleProdutos;
+    private javax.swing.JMenuItem menuVendaConsultaId;
+    private javax.swing.JMenuItem menuVendaConsultarVendas;
+    private javax.swing.JMenuItem menuVendaRealizarVendas;
+    private javax.swing.JLabel principalFundoImagem;
+    private javax.swing.JMenuBar principalMenu;
+    private javax.swing.JMenu principalMenuClientes;
+    private javax.swing.JMenu principalMenuFuncionarios;
+    private javax.swing.JMenu principalMenuProdutos;
+    private javax.swing.JMenu principalMenuVendas;                
+}

@@ -1,0 +1,91 @@
+package controle;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import application.Main;
+import modelo.Pedido;
+import modelo.Venda;
+
+public class ControleVenda {
+	
+	//ATRIBUTOS
+	ControleVendedor controleVendedor = Main.controleVendedor;
+	ControleCliente controleCliente = Main.controleCliente;
+	ControleProduto controleProduto = Main.controleProduto;
+	List<Venda> vendas = new ArrayList<>();
+	
+	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
+	public ControleVenda() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		try {
+			// VENDA 1
+			List<Pedido> pedidosVenda1 = new ArrayList<>();
+			pedidosVenda1.add(new Pedido(controleProduto.pesquisarProdutoId(1), 1, controleProduto.pesquisarProdutoId(1).getPreco()*1));
+			pedidosVenda1.add(new Pedido(controleProduto.pesquisarProdutoId(11), 1, controleProduto.pesquisarProdutoId(11).getPreco()*1));
+			pedidosVenda1.add(new Pedido(controleProduto.pesquisarProdutoId(19), 2, controleProduto.pesquisarProdutoId(19).getPreco()*2));
+			vendas.add(new Venda(1, sdf.parse("18/05/2022"), 11789.96, controleVendedor.pesquisarPorNome("Raf"), controleCliente.pesquisarClientePorCPF("264.162.494-05"), pedidosVenda1));
+			
+			// VENDA 2
+			List<Pedido> pedidosVenda2 = new ArrayList<>();
+			pedidosVenda2.add(new Pedido(controleProduto.pesquisarProdutoId(12), 1, controleProduto.pesquisarProdutoId(12).getPreco()*1));
+			pedidosVenda2.add(new Pedido(controleProduto.pesquisarProdutoId(21), 1, controleProduto.pesquisarProdutoId(21).getPreco()*1));
+			pedidosVenda2.add(new Pedido(controleProduto.pesquisarProdutoId(15), 1, controleProduto.pesquisarProdutoId(15).getPreco()*1));
+			pedidosVenda2.add(new Pedido(controleProduto.pesquisarProdutoId(10), 1, controleProduto.pesquisarProdutoId(10).getPreco()*1));
+			vendas.add(new Venda(2, sdf.parse("19/05/2022"), 6549.46, controleVendedor.pesquisarPorNome("Vic"), controleCliente.pesquisarClientePorCPF("619.021.645-55"), pedidosVenda2));
+			
+			// VENDA 3
+			List<Pedido> pedidosVenda3 = new ArrayList<>();
+			pedidosVenda3.add(new Pedido(controleProduto.pesquisarProdutoId(5), 1, controleProduto.pesquisarProdutoId(5).getPreco()*1));
+			vendas.add(new Venda(3, sdf.parse("19/05/2022"), 9176.00, controleVendedor.pesquisarPorNome("Carla"), controleCliente.pesquisarClientePorCPF("428.047.520-20"), pedidosVenda3));
+			
+			// VENDA 4
+			List<Pedido> pedidosVenda4 = new ArrayList<>();
+			pedidosVenda4.add(new Pedido(controleProduto.pesquisarProdutoId(6), 1, controleProduto.pesquisarProdutoId(6).getPreco()*1));
+			pedidosVenda4.add(new Pedido(controleProduto.pesquisarProdutoId(7), 1, controleProduto.pesquisarProdutoId(7).getPreco()*1));
+			vendas.add(new Venda(4, sdf.parse("01/06/2022"), 1443.79, controleVendedor.pesquisarPorNome("Gio"), controleCliente.pesquisarClientePorCPF("577.468.789-97"), pedidosVenda4));
+	} catch (ParseException e) {
+			
+		}
+	}
+	
+	//METODOS
+	public void adicionarVenda(Venda venda) {
+		vendas.add(venda);	
+	}
+	
+	public Integer ultimoCodigoCadastrado() {
+		return vendas.get((vendas.size() - 1)).getId();
+	}
+	
+	public Double totalVenda(List<Pedido> pedidos) {
+		Double total = 0.0;
+		for(Pedido p: pedidos) {
+			total += p.getPrecoTotal();
+		}
+		return total;
+	}
+	
+	public List<Venda> consultarVendaComData(Date dataInicial, Date dataFinal){
+		List<Venda> vendasConsultadas = new ArrayList<>();
+		for(Venda v: vendas) {
+			if(v.getDataVenda().after(dataInicial) && v.getDataVenda().before(dataFinal)) {
+				vendasConsultadas.add(v);
+			}
+		}
+		return vendasConsultadas;
+	}
+	
+	public Venda consultarVenda(Integer id) {
+		for(Venda v:vendas) {
+			if(v.getId()==id) {
+				return v;
+			}
+		}
+		return null;
+	}
+}

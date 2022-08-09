@@ -1,7 +1,6 @@
 package modelo;
 
 public class Cliente extends PessoaAbstrata{
-	
 	//ATRIBUTOS
 	private String cpf;
 	private Endereco endereco = new Endereco();
@@ -11,15 +10,11 @@ public class Cliente extends PessoaAbstrata{
 		
 	}
 	
-	public Cliente(Integer id, String nome, String email, String cpf, String cep, 
-			String cidade, String endereco, String numero, String bairro, String uf) {
-		
+	public Cliente(Integer id, String nome, String email, String cpf, String cep, String cidade, String endereco, String numero, String bairro, String uf) {
 		super.setId(id);
 		super.setNome(nome);
 		super.setEmail(email);
-		
 		this.cpf = cpf;
-		
 		this.endereco.setCep(cep);
 		this.endereco.setCidade(cidade);
 		this.endereco.setEndereco(endereco);
@@ -47,7 +42,8 @@ public class Cliente extends PessoaAbstrata{
 
 	@Override
 	public String toString() {
-		return "Cliente [cpf=" + cpf + ", endereco=" + endereco + "]";
+		return "Cliente [cpf=" + cpf + ", endereco=" + endereco + ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getEmail()=" + getEmail() + "]";
 	}	
 }
 

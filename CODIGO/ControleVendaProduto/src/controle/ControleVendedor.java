@@ -17,8 +17,8 @@ public class ControleVendedor {
 		vendedores.add(new Vendedor(1, "Vicente Paulo Tomás Nunes", "marcelo78@hersa.com.br", "Celulares"));
 		vendedores.add(new Vendedor(2, "Rafael Augusto Baptista", "rafael_augusto_baptista@callan.com.br", "Móveis"));
 		vendedores.add(new Vendedor(3, "Carla Gabrielly Vera Ramos", "carla_gabi@yahoo.com.br", "Eletrodomésticos"));
-		vendedores.add(new Vendedor(4, "Giovana Mirella Priscila", "giovana_mirella@grupompe.com.br", "Limpeza"));
-		vendedores.add(new Vendedor(5, "Tânia Bruna Malu Carvalho", "tania_carvalho@casaarte.com.br", "Alimentício"));
+		vendedores.add(new Vendedor(4, "Giovana Mirella Priscila", "giovana_mirella@grupompe.com.br", "Jardinagem"));
+		vendedores.add(new Vendedor(5, "Tânia Bruna Malu Carvalho", "tania_carvalho@casaarte.com.br", "Automotivo"));		
 	}
 	
 	//METODOS

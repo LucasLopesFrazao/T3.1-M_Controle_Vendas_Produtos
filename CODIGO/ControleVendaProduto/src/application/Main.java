@@ -9,10 +9,11 @@ import view.TelaPrincipal;
 public class Main {
 
 	public static void main(String[] args) {
+		//CHAMANDO TELA INICIAL
 		TelaPrincipal.main(args);
 	}
 	
-	//"BANCOS DE DADOS"
+	// INSTANCIAÇÃO DOS "BANCOS DE DADOS" 
 	public static ControleCliente controleCliente = new ControleCliente();
 	
 	public static ControleVendedor controleVendedor = new ControleVendedor();

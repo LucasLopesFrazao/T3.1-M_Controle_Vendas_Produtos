@@ -14,11 +14,41 @@ public class ControleProduto {
 	
 	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
 	public ControleProduto() {
-		produtos.add(new Produto(1, 1481.00, 10, "AMD Ryzen 5"));
-		produtos.add(new Produto(2, 258.81, 15, "Memoria RAM DDR4"));
-		produtos.add(new Produto(3, 587.06, 7, "Placa Mãe AM4"));
-		produtos.add(new Produto(4, 234.12, 20, "Gabinete"));
-		produtos.add(new Produto(5, 351.76, 30, "Fonte 500W"));
+		
+		//CELULARES
+		produtos.add(new Produto(1, 8549.00, 100, "Galaxy S22 Ultra 5G Preto 256GB"));
+		produtos.add(new Produto(2, 11519.00, 50, "Galaxy Z Fold3 5G Preto 512GB"));
+		produtos.add(new Produto(3, 2699.00, 25, "Galaxy S21 FE 5G 128GB"));
+		produtos.add(new Produto(4, 3319.00, 75, "iPhone 11 Apple (64GB) Preto "));
+		produtos.add(new Produto(5, 9176.00, 15, "Iphone 13 PRO"));
+		
+		//MÓVEIS
+		produtos.add(new Produto(6, 573.89, 5, "Mesa de Escritório Miguel Preta 190 cm"));
+		produtos.add(new Produto(7, 869.90, 3, "Cadeira Gamer Donek Preta"));
+		produtos.add(new Produto(8, 1069.90, 3, "Guarda-Roupa Casal Madesa Reno 3 Portas"));
+		produtos.add(new Produto(9, 1069.90, 10, "Painel com suporte para Tv até 47\""));
+		produtos.add(new Produto(10, 1449.00, 10, "Cama Box Com Baú Casal"));
+		
+		//ELETRODOMESTICOS
+		produtos.add(new Produto(11, 2969.10, 15, "Geladeira/Refrigerador Brastemp Frost Free Duplex"));
+		produtos.add(new Produto(12, 2599.99, 50, "SAMSUNG TV smart 50"));
+		produtos.add(new Produto(13, 2229.00, 10, "Lavadoura de roupa 17KG BRASTEMP"));
+		produtos.add(new Produto(14, 1089.90, 40, "Mini System LG Xboom"));
+		produtos.add(new Produto(15, 1380.50, 10, "Fogão Itatiaia Dream"));
+		
+		//JARDINAGEM
+		produtos.add(new Produto(16, 539.99, 5, "Cortador de grama elétrico TRAMONTINA"));
+		produtos.add(new Produto(17, 214.70, 10, "Aparador de grama elétrico TRAMONTINA"));
+		produtos.add(new Produto(18, 69.90, 50, "Mangueira magica compacta retrátil"));
+		produtos.add(new Produto(19, 135.93, 35, "Vaso Autoirrigável para plantas"));
+		produtos.add(new Produto(20, 387.90, 15, "Motoserra Eletroserra Elétrica 1600w"));
+		
+		//AUTOMOTIVO
+		produtos.add(new Produto(21, 1119.97, 80, "Kit 4 pneus aro 15 Westlake"));
+		produtos.add(new Produto(22, 354.90, 15, "Bateria Moura"));
+		produtos.add(new Produto(23, 8.35, 30, "Limpa vidros autocraft"));
+		produtos.add(new Produto(24, 329.90, 45, "Som automotivo Roadstar"));
+		produtos.add(new Produto(25, 379.99, 15, "GPS VATINE Bluetooth WIFI"));
 	}
 	
 	//METODOS
