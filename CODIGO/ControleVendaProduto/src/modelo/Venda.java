@@ -1,3 +1,7 @@
+/**
+ * Classe utilizada no controleVenda, é apenas uma model de uma venda.
+ * @version 1.0.0
+ */
 package modelo;
 
 import java.util.ArrayList;

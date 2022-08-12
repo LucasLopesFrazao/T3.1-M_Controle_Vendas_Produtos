@@ -10,15 +10,23 @@ import application.Main;
 import modelo.Pedido;
 import modelo.Venda;
 
+/**
+ * A classe <b>ControleVenda</b> define uma relação com a classe Produto, Cliente, Vendedor e Venda (models) com a TelaVenda (view). 
+ * <p>
+ * Essa classe é responsável por gerenciar a lista de venda junto com os métodos necessários
+ * </p>
+ * @version 1.0
+ */
 public class ControleVenda {
-	
-	//ATRIBUTOS
 	ControleVendedor controleVendedor = Main.controleVendedor;
 	ControleCliente controleCliente = Main.controleCliente;
 	ControleProduto controleProduto = Main.controleProduto;
+	
 	List<Venda> vendas = new ArrayList<>();
 	
-	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
+	/**
+	 * O construtor default da classe
+	 */
 	public ControleVenda() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -91,15 +99,27 @@ public class ControleVenda {
 		}
 	}
 	
-	//METODOS
+	/**
+	 * Esse método adiociona uma venda na lista
+	 * @param venda Venda a ser adicionado 
+	 */
 	public void adicionarVenda(Venda venda) {
 		vendas.add(venda);	
 	}
 	
+	/**
+	 * Esse método retorna o ultimo id do cliente adicionado na lista
+	 * @return Ultimo id do cliente da lista
+	 */
 	public Integer ultimoCodigoCadastrado() {
 		return vendas.get((vendas.size() - 1)).getId();
 	}
 	
+	/**
+	 * Este método retorna o total de uma venda
+	 * @param pedidos Lista de pedidos com os produtos
+	 * @return Total da venda do pedido
+	 */
 	public Double totalVenda(List<Pedido> pedidos) {
 		Double total = 0.0;
 		for(Pedido p: pedidos) {
@@ -108,6 +128,12 @@ public class ControleVenda {
 		return total;
 	}
 	
+	/**
+	 * Este método retorna todas as vendas feitas dentro de um período de datas
+	 * @param dataInicial Data inicial do período
+	 * @param dataFinal Data final do período
+	 * @return Retorna todas as compras entre a data inicial e a data final
+	 */
 	public List<Venda> consultarVendaComData(Date dataInicial, Date dataFinal){
 		List<Venda> vendasConsultadas = new ArrayList<>();
 		for(Venda v: vendas) {
@@ -118,6 +144,11 @@ public class ControleVenda {
 		return vendasConsultadas;
 	}
 	
+	/**
+	 * Este método retorna uma venda
+	 * @param id Id a ser consultado na lista
+	 * @return retorna uma Venda ou null
+	 */
 	public Venda consultarVenda(Integer id) {
 		for(Venda v:vendas) {
 			if(v.getId()==id) {

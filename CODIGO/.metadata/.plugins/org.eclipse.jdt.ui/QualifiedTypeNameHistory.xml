@@ -3,7 +3,6 @@
     <fullyQualifiedTypeName name="controle.BancoDados"/>
     <fullyQualifiedTypeName name="view.Principal"/>
     <fullyQualifiedTypeName name="controle.ControleCliente"/>
-    <fullyQualifiedTypeName name="modelo.Endereco"/>
     <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
     <fullyQualifiedTypeName name="java.lang.Object"/>
     <fullyQualifiedTypeName name="modelo.Vendedor"/>
@@ -40,4 +39,6 @@
     <fullyQualifiedTypeName name="exceptions.CampoEmBrancoException"/>
     <fullyQualifiedTypeName name="java.text.ParseException"/>
     <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+    <fullyQualifiedTypeName name="javax.management.modelmbean.ModelMBeanOperationInfo"/>
+    <fullyQualifiedTypeName name="modelo.Endereco"/>
 </qualifiedTypeNameHistroy>

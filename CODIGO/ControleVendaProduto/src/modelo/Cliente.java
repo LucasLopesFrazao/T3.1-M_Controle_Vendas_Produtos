@@ -1,11 +1,14 @@
-package modelo;
+/**
+ * Classe utilizada no controleCliente, é apenas uma model de um cliente.
+ * @version 1.0.0
+ */
 
+package modelo;
 public class Cliente extends PessoaAbstrata{
-	//ATRIBUTOS
+	
 	private String cpf;
 	private Endereco endereco = new Endereco();
 	
-	//CONSTRUTORES
 	public Cliente() {
 		
 	}
@@ -23,7 +26,6 @@ public class Cliente extends PessoaAbstrata{
 		this.endereco.setUf(uf);
 	}
 
-	//GETTERS E SETTERS
 	public String getCpf() {
 		return cpf;
 	}
@@ -46,5 +48,3 @@ public class Cliente extends PessoaAbstrata{
 				+ ", getEmail()=" + getEmail() + "]";
 	}	
 }
-
-

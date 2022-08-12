@@ -7,12 +7,19 @@ import exceptions.EstoqueException;
 import exceptions.IdProdutoException;
 import modelo.Produto;
 
+/**
+ * A classe <b>ControleProduto</b> define uma relação com a classe Produto (model) com a TelaProduto (view). 
+ * <p>
+ * Essa classe é responsável por gerenciar a lista de produto junto com os métodos necessários
+ * </p>
+ * @version 1.0
+ */
 public class ControleProduto {
-	
-	//ATRIBUTOS
 	List<Produto> produtos = new ArrayList<>();
 	
-	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
+	/**
+	 * O construtor default da classe
+	 */
 	public ControleProduto() {
 		
 		//CELULARES
@@ -51,15 +58,27 @@ public class ControleProduto {
 		produtos.add(new Produto(25, 379.99, 15, "GPS VATINE Bluetooth WIFI"));
 	}
 	
-	//METODOS
+	/**
+	 * Esse método retorna o ultimo id do produto adicionado na lista
+	 * @return Ultimo id do cliente da lista
+	 */
 	public Integer ultimoCodigoCadastrado() {
 		return produtos.get((produtos.size() - 1)).getId();
 	}
 	
+	/**
+	 * Esse método obtêm a lista de produtos
+	 * @return Retorna uma Lista de Produto
+	 */
 	public List<Produto> obterTodosProdutos(){
 		return produtos;
 	}
 	
+	/**
+	 * Esse método checa se um determinado id existe na lista 
+	 * @param id Id a ser checado
+	 * @return Retorna um boolean informando se o id existe ou não na lista
+	 */
 	public boolean checarId(Integer id) {
 		for(Produto p: produtos) {
 			if(p.getId() == id) {
@@ -70,6 +89,10 @@ public class ControleProduto {
 		return false;
 	}
 	
+	/**
+	 * Este método recebe um produto e reescreve os dados de um já existente
+	 * @param produto Novo produto com os dados a serem reescritos
+	 */
 	public void editarProduto(Produto produto) {
 		for(Produto p: produtos) {
 			if(p.getId() == produto.getId()) {
@@ -81,10 +104,20 @@ public class ControleProduto {
 		}
 	}
 	
+	/**
+	 * Esse método adiociona um produto na lista
+	 * @param produto Produto a ser adicionado 
+	 */
 	public void adicionarProduto(Produto produto) {
 		produtos.add(produto);
 	}
 	
+	
+	/**
+	 * Esse método pesquisa um produto na lista pelo nome
+	 * @param nome Nome a ser procurado na lista 
+	 * @return Retorna um Produto
+	 */
 	public Produto pesquisarProduto(String nome) {
 		for(Produto p: produtos) {
 			if(p.getNome().toUpperCase().contains(nome.toUpperCase())) {
@@ -94,6 +127,11 @@ public class ControleProduto {
 		return new Produto();
 	}
 	
+	/**
+	 * Esse método pesquisa um produto na lista pelo id
+	 * @param id Id a ser procurado na lista 
+	 * @return Retorna um Produto
+	 */
 	public Produto pesquisarProdutoId(Integer id) {
 		for(Produto p: produtos) {
 			if(p.getId() == id) {
@@ -103,6 +141,10 @@ public class ControleProduto {
 		return new Produto();
 	}
 	
+	/**
+	 * Esse método exclui um produto
+	 * @param id id do produto a ser excluido 
+	 */
 	public void excluirProduto(Integer id) {
 		int loop = 0;
 		for(Produto p: produtos) {
@@ -114,6 +156,12 @@ public class ControleProduto {
 		}
 	}
 	
+	/**
+	 * Este método diminui o estoque de um produto na lista
+	 * @param id Id do produto a ter o estoque diminuido
+	 * @param qtd Quantidade a ser diminuida do estoque
+	 * @throws EstoqueException Quantidade a ser retirada deixa o produto com menos de 0 unidades
+	 */
 	public void diminuirEstoque(Integer id, Integer qtd) throws EstoqueException {
 		for(Produto p: produtos) {
 			if(p.getId() == id) {
@@ -126,6 +174,11 @@ public class ControleProduto {
 		}
 	}
 	
+	/**
+	 * Este método aumenta o estoque de um produto na lista
+	 * @param id Id do produto a ter o estoque aumentado
+	 * @param qtd Quantidade a ser aumentada do estoque
+	 */
 	public void aumentarEstoque(Integer id, Integer qtd){
 		for(Produto p: produtos) {
 			if(p.getId() == id) {
@@ -134,6 +187,12 @@ public class ControleProduto {
 		}
 	}
 	
+	/**
+	 * Este método verifica se um dado id existe na lista
+	 * @param id Id a ser checado -
+	 * @return Retorna um boolean informando se o id existe ou não
+	 * @throws IdProdutoException Não exista um produto com o id
+	 */
 	public boolean checarIdNoSistema(Integer id) throws IdProdutoException {
 		for(Produto p: produtos) {
 			if(p.getId() == id) {

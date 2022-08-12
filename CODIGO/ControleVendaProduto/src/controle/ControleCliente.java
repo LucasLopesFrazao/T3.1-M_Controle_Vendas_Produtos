@@ -8,11 +8,19 @@ import java.util.regex.Pattern;
 
 import modelo.Cliente;
 
+/**
+ * A classe <b>ControleCliente</b> define uma relação com a classe Cliente (model) com a TelaCliente (view). 
+ * <p>
+ * Essa classe é responsável por gerenciar a lista de cliente junto com os métodos necessários
+ * </p>
+ * @version 1.0
+ */
 public class ControleCliente {
-	//ATRIBUTOS
 	private List<Cliente> clientes = new ArrayList<Cliente>();
 	
-	//CONSTRUTOR COM SEMEAÇÃO DO "BANCO DE DADOS".
+	/**
+	 * O construtor default da classe 
+	 */
 	public ControleCliente() {
 		clientes.add(new Cliente(1, "Marcelo Otávio Assis", "marcelo78@hersa.com.br", "264.162.494-05", "41306-065",
 				"Salvador", "Vila das Margaridas", "229", "Nova Brasília de Valéria", "BA"));
@@ -45,11 +53,19 @@ public class ControleCliente {
 				"Campo Grande", "Rua Maracaju", "555", "Centro", "MS"));
 	}
 	
-	//METODOS
+	/**
+	 * Esse método retorna o ultimo id do cliente adicionado na lista
+	 * @return Ultimo id do cliente da lista
+	 */
 	public Integer ultimoCodigoCadastrado() {		
 		return clientes.get((clientes.size() - 1)).getId();
 	}
 	
+	/**
+	 * Esse método pesquisa um cliente na lista
+	 * @param cpf CPF a ser procurado na lista 
+	 * @return Retorna um Cliente
+	 */
 	public Cliente pesquisarClientePorCPF(String cpf) {
 		Cliente cliente = new Cliente();
 		for(Cliente c: clientes) {
@@ -60,6 +76,10 @@ public class ControleCliente {
 		return cliente;
 	}
 	
+	/**
+	 * Esse método exclui um cliente
+	 * @param cpf CPF do cliente a ser excluido 
+	 */
 	public void excluirCliente(String cpf) {
 		int loop = 0;
 		for(Cliente c: clientes) {
@@ -71,14 +91,27 @@ public class ControleCliente {
 		}
 	}
 	
+	/**
+	 * Esse método adiociona um cliente na lista
+	 * @param cliente Cliente a ser adicionado 
+	 */
 	public void adicionarCliente(Cliente cliente) {
 		clientes.add(cliente);
 	}
 	
+	/**
+	 * Esse método obtêm a lista de clientes
+	 * @return Retorna uma Lista de Cliente
+	 */
 	public List<Cliente> obterTodosClientes(){
 		return clientes;
 	}
 	
+	/**
+	 * Esse método checa se um determinado id existe na lista 
+	 * @param id Id a ser checado
+	 * @return Retorna um boolean informando se o id existe ou não na lista
+	 */
 	public boolean checarId(Integer id) {
 		for(Cliente c: clientes) {
 			if(c.getId() == id) {
@@ -88,6 +121,10 @@ public class ControleCliente {
 		return false;
 	}
 	
+	/**
+	 * Este método recebe um cliente e reescreve os dados de um já existente
+	 * @param cliente Novo cliente com os dados a serem reescritos
+	 */
 	public void editarCliente(Cliente cliente) {
 		for(Cliente c: clientes) {
 			if(c.getId() == cliente.getId()) {
@@ -106,6 +143,11 @@ public class ControleCliente {
 		}
 	}
 	
+	/**
+	 * Este método válida um CPF
+	 * @param CPF - CPF a ser válidado
+	 * @return Retorna um boolean informando se o cpf é válido ou não
+	 */
 	public boolean validarCPF(String CPF) {
 		CPF = CPF.replace("-", "");
 		CPF = CPF.replace(".", "");
@@ -164,6 +206,11 @@ public class ControleCliente {
 	    }
 	}
 	
+	/**
+	 * Este método válida um e-mail por meio do regex
+	 * @param email E-mail a ser válido
+	 * @return Retorna um boolean informando se o e-mail é válio ou não
+	 */
 	public boolean validarEmail(String email) {
 	    boolean isEmailIdValid = false;
 	    if (email != null && email.length() > 0) {
@@ -177,6 +224,11 @@ public class ControleCliente {
 	    return isEmailIdValid;
 	}
 	
+	/**
+	 * Este método verifica se um dado CPF existe na lista
+	 * @param cpf CPF a ser verificado
+	 * @return Retorna um boolean informando se o cpf existe ou não
+	 */
 	public boolean cpfNoSistema(String cpf) {
 		for(Cliente c: clientes) {
 			if(c.getCpf().equals(cpf)) {

@@ -1,3 +1,7 @@
+/**
+ * Classe utilizada no controleProduto, é apenas uma model de um produto.
+ * @version 1.0.0
+ */
 package modelo;
 
 public class Produto {

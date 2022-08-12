@@ -1,3 +1,7 @@
+/**
+ * Classe utilizada para complementar a classe Cliente, é apenas uma model de um endereço para o cliente.
+ * @version 1.0.0
+ */
 package modelo;
 
 public class Endereco {

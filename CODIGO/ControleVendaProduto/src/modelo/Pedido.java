@@ -1,3 +1,7 @@
+/**
+ * Classe utilizada para complementar a classe Venda e Produto, é apenas uma model que tem vários produtos e é usada pelo ControleVenda.
+ * @version 1.0.0
+ */
 package modelo;
 
 public class Pedido {

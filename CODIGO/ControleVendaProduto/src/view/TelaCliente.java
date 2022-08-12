@@ -406,7 +406,7 @@ public class TelaCliente extends javax.swing.JDialog {
 
         pack();
     }                      
-
+    
     private void controleClienteBtnApagarCamposActionPerformed(java.awt.event.ActionEvent evt) {                                                               
         // APAGANDO TODOS OS CAMPOS
     	controleClienteInputCod.setText(String.valueOf(controleCliente.ultimoCodigoCadastrado() + 1)); // SETANDO COD PARA O PROXIMO A SER CADASTRADO

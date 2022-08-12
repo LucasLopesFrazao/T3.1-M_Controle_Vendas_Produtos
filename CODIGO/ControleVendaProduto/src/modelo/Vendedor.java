@@ -1,8 +1,12 @@
+/**
+ * Classe utilizada no controleVendedor, é apenas uma model de um vendedor.
+ * @version 1.0.0
+ */
+
 package modelo;
 
 public class Vendedor extends PessoaAbstrata{
 	
-	//ATRIBUTOS
 	private String departamento;
 	
 	//CONSTRUTORES
